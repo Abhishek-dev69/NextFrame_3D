@@ -14,7 +14,7 @@ export const useImagePreloader = (frameCount: number) => {
       for (let i = 0; i < frameCount; i++) {
         const img = new Image();
         const index = i.toString().padStart(3, '0');
-        img.src = `/images/sequence/Wireframe_to_living_room_transition_delpmaspu__${index}.png`;
+        img.src = `/images/sequence/frame_${index}.png`;
         
         await new Promise((resolve) => {
           img.onload = () => {
