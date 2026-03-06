@@ -195,7 +195,10 @@ export const HeroCanvas = () => {
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 touch-none will-change-transform"
-          style={{ opacity: loaded ? 1 : 0 }}
+          style={{ 
+            opacity: loaded ? 1 : 0,
+            transform: 'translate3d(0,0,0)', // Force GPU compositing layer
+          }}
         />
         
         {/* Gradient Overlay for Text Readability - Simplified to uniform dark wash + bottom gradient  */}
@@ -218,6 +221,21 @@ export const HeroCanvas = () => {
              Keep scrolling to assemble
           </p>
         </motion.div>
+
+        {/* Background queue progress — shows while loaded but still fetching later frames */}
+        {loaded && progress < 100 && (
+          <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 pointer-events-none">
+            <div className="w-32 h-px bg-white/10 relative overflow-hidden">
+              <div 
+                className="absolute inset-y-0 left-0 bg-white/50 transition-all duration-500"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <span className="text-white/40 font-mono text-[10px] tracking-[0.2em] uppercase whitespace-nowrap">
+              Optimizing Metaframe: {progress}%
+            </span>
+          </div>
+        )}
 
         {/* Hotspots Layer */}
         <AnimatePresence>
