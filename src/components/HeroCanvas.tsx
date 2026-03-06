@@ -11,21 +11,21 @@ const hotspots = [
     id: "glass",
     top: "30%",
     left: "60%",
-    title: "Smart Photometric Glass",
+    title: "Photometric Smart Glass",
     description: "Adaptive tinting capable of reducing HVAC load by up to 25%."
   },
   {
     id: "beams",
     top: "65%",
     left: "25%",
-    title: "Reinforced I-Beams",
+    title: "Structural Metaframe",
     description: "High-tensile carbon-infused steel for unmatched structural integrity."
   },
   {
     id: "processor",
     top: "80%",
     left: "70%",
-    title: "NextFrame AR Node",
+    title: "NextFrame Metaglass 2.0",
     description: "Edge-computing node rendering real-time spatial physics."
   }
 ];
@@ -99,7 +99,7 @@ export const HeroCanvas = () => {
   // Interpolation Tick (Lerp)
   useEffect(() => {
     let animationFrameId: number;
-    const factor = 0.07;
+    const factor = 0.06;
 
     const tick = () => {
       currentFrame.current += (targetFrame.current - currentFrame.current) * factor;
@@ -181,7 +181,7 @@ export const HeroCanvas = () => {
         
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 touch-none will-change-transform"
           style={{ opacity: loaded ? 1 : 0 }}
         />
         
