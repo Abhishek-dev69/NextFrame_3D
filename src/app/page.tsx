@@ -16,7 +16,7 @@ import { NoiseOverlay } from "@/components/NoiseOverlay";
 export default function Home() {
   return (
     <main className="bg-black text-white min-h-screen relative selection:bg-white/20">
-      
+
       {/* Global Grain Polish */}
       <NoiseOverlay />
 
@@ -25,14 +25,14 @@ export default function Home() {
 
       {/* Hero — Scroll-linked 3D Room Assembly */}
       <HeroCanvas />
-      
+
       {/* About Us */}
       <AboutSection />
 
       {/* 1. The Metaframe Services Grid */}
       <div className="h-20 bg-gradient-to-b from-[#050505] to-black border-t border-white/5" />
       <ServicesSection />
-      
+
       {/* 2. Our Projects */}
       <div className="h-20 bg-gradient-to-b from-black to-[#050505] border-t border-white/5" />
       <ProjectsSection />
@@ -47,7 +47,7 @@ export default function Home() {
       {/* 4. Parallax Use Cases */}
       <div className="h-20 bg-gradient-to-b from-black to-[#0a0a0a] border-t border-white/5" />
       <IndustrySolutions />
-      
+
       {/* 5. Exploded Hardware View */}
       <div className="h-20 bg-gradient-to-b from-[#0a0a0a] to-black" />
       <MetaglassesShowcase />
@@ -55,9 +55,9 @@ export default function Home() {
       {/* 6. Booking & Consultation */}
       <div id="contact" />
       <BookingSection />
-      
+
       <footer className="py-12 text-center text-sm text-gray-600 bg-black border-t border-white/5 relative z-50">
-        <p>&copy; {new Date().getFullYear()} NextFrame. All rights reserved. Built by Shrey Bhanusali.</p>
+        <p>&copy; {new Date().getFullYear()} NextFrame. All rights reserved. Built by Abhishek Singh.</p>
       </footer>
 
       {/* Persistent floating guide */}
