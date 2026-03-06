@@ -99,7 +99,7 @@ export const HeroCanvas = () => {
   // Interpolation Tick (Lerp)
   useEffect(() => {
     let animationFrameId: number;
-    const factor = 0.05;
+    const factor = 0.06;
 
     const tick = () => {
       currentFrame.current += (targetFrame.current - currentFrame.current) * factor;
@@ -169,7 +169,7 @@ export const HeroCanvas = () => {
     // Height set to 1500vh for the most cinematic scroll duration possible
     <div ref={containerRef} className="relative h-[1500vh] bg-black">
       <motion.div 
-        style={{ scale, x, y, opacity }}
+        style={{ scale, x, y, opacity, touchAction: 'pan-y' }}
         className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center transform-origin-center rounded-3xl"
       >
         
@@ -194,10 +194,10 @@ export const HeroCanvas = () => {
         
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 touch-none will-change-transform"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 pointer-events-none will-change-transform"
           style={{ 
             opacity: loaded ? 1 : 0,
-            transform: 'translate3d(0,0,0)', // Force GPU compositing layer
+            transform: 'translateZ(0)', // Force GPU compositing layer
           }}
         />
         

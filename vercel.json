@@ -1,6 +1,7 @@
 {
   "framework": "nextjs",
   "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/images/sequence/(.*)",
