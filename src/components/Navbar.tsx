@@ -36,7 +36,8 @@ export const Navbar = () => {
             alt="NextFrame"
             width={160}
             height={48}
-            className="h-9 w-auto object-contain brightness-0 invert"
+            className="h-9 w-auto object-contain"
+            style={{ mixBlendMode: 'screen' }}
             priority
           />
         </a>

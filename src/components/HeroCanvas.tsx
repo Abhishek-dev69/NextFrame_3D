@@ -218,7 +218,8 @@ export const HeroCanvas = () => {
             alt="NextFrame"
             width={300}
             height={90}
-            className="h-16 md:h-20 w-auto object-contain brightness-0 invert mb-6 drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+            className="h-16 md:h-24 w-auto object-contain mb-6 drop-shadow-[0_0_40px_rgba(255,255,255,0.2)]"
+            style={{ mixBlendMode: 'screen' }}
             priority
           />
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-[0.15em] uppercase drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
