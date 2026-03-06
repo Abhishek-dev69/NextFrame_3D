@@ -18,14 +18,14 @@ const hotspots = [
     id: "beams",
     top: "65%",
     left: "25%",
-    title: "Structural Metaframe",
+    title: "Structural 3D Metaframe",
     description: "High-tensile carbon-infused steel for unmatched structural integrity."
   },
   {
     id: "processor",
     top: "80%",
     left: "70%",
-    title: "NextFrame Metaglass 2.0",
+    title: "NextFrame AR Metaglasses",
     description: "Edge-computing node rendering real-time spatial physics."
   }
 ];
