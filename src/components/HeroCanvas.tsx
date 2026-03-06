@@ -34,7 +34,7 @@ export const HeroCanvas = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
-  const { images, loaded } = useImagePreloader(FRAME_COUNT);
+  const { images, loaded, progress } = useImagePreloader(FRAME_COUNT);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -127,8 +127,8 @@ export const HeroCanvas = () => {
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     // We update the target, not the actual draw. The tick() loop handles the chase.
     if (loaded && images.length > 0) {
-       // Assemble fully by 80% scroll progress so user can see it before it scales away
-       const progress = Math.min(1, latest / 0.8);
+       // Assemble fully by 100% / 1.2 scroll — allows room to breathe before shrinking
+       const progress = Math.min(1, latest / 1.2);
        targetFrame.current = progress * (FRAME_COUNT - 1);
     }
   });
@@ -166,16 +166,29 @@ export const HeroCanvas = () => {
   const opacity = useTransform(scrollYProgress, [0.98, 1], [1, 0]);
 
   return (
-    // Height set to 1200vh for a very long, cinematic scroll duration
-    <div ref={containerRef} className="relative h-[1200vh] bg-black">
+    // Height set to 1500vh for the most cinematic scroll duration possible
+    <div ref={containerRef} className="relative h-[1500vh] bg-black">
       <motion.div 
         style={{ scale, x, y, opacity }}
         className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center transform-origin-center rounded-3xl"
       >
         
         {!loaded && (
-          <div className="absolute inset-0 flex items-center justify-center z-10 text-white font-mono text-sm tracking-widest uppercase">
-            Loading NextFrame Experience...
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 gap-6">
+            {/* Percentage Counter */}
+            <span className="text-white font-mono text-xs tracking-[0.3em] uppercase opacity-60">
+              Loading NextFrame Experience
+            </span>
+            <div className="w-64 h-px bg-white/10 relative overflow-hidden">
+              {/* Fill bar */}
+              <div
+                className="absolute inset-y-0 left-0 bg-white transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <span className="text-white font-mono text-sm tabular-nums">
+              {progress}%
+            </span>
           </div>
         )}
         

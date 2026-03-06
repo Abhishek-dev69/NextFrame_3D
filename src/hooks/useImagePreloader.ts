@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 export const useImagePreloader = (frameCount: number) => {
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [progress, setProgress] = useState(0); // 0–100
 
   useEffect(() => {
     const loadImages = async () => {
@@ -19,6 +20,7 @@ export const useImagePreloader = (frameCount: number) => {
         await new Promise((resolve) => {
           img.onload = () => {
             loadedCount++;
+            setProgress(Math.round((loadedCount / frameCount) * 100));
             if (loadedCount === frameCount) {
               setLoaded(true);
             }
@@ -28,6 +30,7 @@ export const useImagePreloader = (frameCount: number) => {
             console.error(`Failed to load image at index ${index}`);
             // Resolve anyway to prevent hanging
             loadedCount++;
+            setProgress(Math.round((loadedCount / frameCount) * 100));
             if (loadedCount === frameCount) {
               setLoaded(true);
             }
@@ -42,5 +45,5 @@ export const useImagePreloader = (frameCount: number) => {
     loadImages();
   }, [frameCount]);
 
-  return { images, loaded };
+  return { images, loaded, progress };
 };
