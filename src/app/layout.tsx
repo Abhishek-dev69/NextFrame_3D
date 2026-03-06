@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NextFrame | Visualizing the Future of Architecture",
-  description: "3D metaframes and metaglasses for the real estate and building industry.",
+  title: "NextFrame | Experience Tomorrow Today",
+  description: "NextFrame is a specialized VR and 3D visualization company — turning real estate blueprints into immersive digital experiences.",
 };
 
 export default function RootLayout({

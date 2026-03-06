@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 import { useScroll, useMotionValueEvent, motion, AnimatePresence, useTransform } from "framer-motion";
 import { useImagePreloader } from "@/hooks/useImagePreloader";
 
@@ -211,14 +212,24 @@ export const HeroCanvas = () => {
           animate={{ opacity: activeFrameIndex > 20 ? 0 : 1 }}
           transition={{ duration: 1 }}
         >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-white tracking-tighter max-w-5xl mx-auto drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
-            NextFrame: <br />
-            <span className="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-400 drop-shadow-md">
-              Visualizing the Future <br/> of Architecture.
+          {/* Logo */}
+          <Image
+            src="/logo.png"
+            alt="NextFrame"
+            width={300}
+            height={90}
+            className="h-16 md:h-20 w-auto object-contain brightness-0 invert mb-6 drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+            priority
+          />
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-[0.15em] uppercase drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+            EXPERIENCE{" "}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-white to-red-300">
+              TOMORROW
             </span>
+            {" "}TODAY.
           </h1>
-          <p className="mt-8 text-lg text-gray-300 font-light tracking-wide uppercase max-w-lg mx-auto">
-             Keep scrolling to assemble
+          <p className="mt-6 text-sm text-gray-300 font-light tracking-[0.3em] uppercase max-w-lg mx-auto">
+            Keep scrolling to assemble
           </p>
         </motion.div>
 

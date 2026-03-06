@@ -1,50 +1,62 @@
 "use client";
 
-import { useEffect } from "react";
 import { HeroCanvas } from "@/components/HeroCanvas";
+import { Navbar } from "@/components/Navbar";
 import { ServicesSection } from "@/components/ServicesSection";
+import { AboutSection } from "@/components/AboutSection";
+import { ProjectsSection } from "@/components/ProjectsSection";
+import { MissionSection } from "@/components/MissionSection";
 import { IndustrySolutions } from "@/components/IndustrySolutions";
 import { MetaglassesShowcase } from "@/components/MetaglassesShowcase";
 import { ContactForm } from "@/components/ContactForm";
 import { FloatingMetaglassIcon } from "@/components/FloatingMetaglassIcon";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
-import { useScrollAudio } from "@/hooks/useScrollAudio";
 
 export default function Home() {
-  // Initialize Web Audio API hook
-  useScrollAudio();
-
   return (
     <main className="bg-black text-white min-h-screen relative selection:bg-white/20">
       
       {/* Global Grain Polish */}
       <NoiseOverlay />
 
+      {/* Sticky Glassmorphism Navigation */}
+      <Navbar />
+
+      {/* Hero — Scroll-linked 3D Room Assembly */}
       <HeroCanvas />
       
-      {/* 1. The Metaframe Grid */}
+      {/* About Us */}
+      <AboutSection />
+
+      {/* 1. The Metaframe Services Grid */}
+      <div className="h-20 bg-gradient-to-b from-[#050505] to-black border-t border-white/5" />
       <ServicesSection />
       
-      {/* Spacer to give breathing room before parallax starts */}
-      <div className="h-40 bg-gradient-to-b from-black to-[#0a0a0a] border-t border-white/5"></div>
-      
-      {/* 2. Parallax Use Cases */}
+      {/* 2. Our Projects */}
+      <div className="h-20 bg-gradient-to-b from-black to-[#050505] border-t border-white/5" />
+      <ProjectsSection />
+
+      {/* 3. Our Mission */}
+      <div className="h-20 bg-gradient-to-b from-[#050505] to-black border-t border-white/5" />
+      <MissionSection />
+
+      {/* 4. Parallax Use Cases */}
+      <div className="h-20 bg-gradient-to-b from-black to-[#0a0a0a] border-t border-white/5" />
       <IndustrySolutions />
       
-      {/* Spacer back to true black */}
-      <div className="h-40 bg-gradient-to-b from-[#0a0a0a] to-black"></div>
-      
-      {/* 3. Exploded Hardware View */}
+      {/* 5. Exploded Hardware View */}
+      <div className="h-20 bg-gradient-to-b from-[#0a0a0a] to-black" />
       <MetaglassesShowcase />
 
-      {/* 4. Consultation CTA */}
+      {/* 6. Consultation CTA */}
+      <div id="contact" />
       <ContactForm />
       
       <footer className="py-12 text-center text-sm text-gray-600 bg-black border-t border-white/5 relative z-50">
-        <p>&copy; {new Date().getFullYear()} NextFrame 3D Metaframes. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} NextFrame. All rights reserved. Built by Shrey Bhanusali.</p>
       </footer>
 
-      {/* Persistent CTA trigger */}
+      {/* Persistent floating guide */}
       <FloatingMetaglassIcon />
     </main>
   );
