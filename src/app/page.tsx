@@ -6,6 +6,7 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { AboutSection } from "@/components/AboutSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { MissionSection } from "@/components/MissionSection";
+import { VRGlimpseSection } from "@/components/VRGlimpseSection";
 import { IndustrySolutions } from "@/components/IndustrySolutions";
 import { MetaglassesShowcase } from "@/components/MetaglassesShowcase";
 import { BookingSection } from "@/components/BookingSection";
@@ -39,6 +40,9 @@ export default function Home() {
       {/* 3. Our Mission */}
       <div className="h-20 bg-gradient-to-b from-[#050505] to-black border-t border-white/5" />
       <MissionSection />
+
+      {/* VR Glimpse — Scroll walkthrough */}
+      <VRGlimpseSection />
 
       {/* 4. Parallax Use Cases */}
       <div className="h-20 bg-gradient-to-b from-black to-[#0a0a0a] border-t border-white/5" />
