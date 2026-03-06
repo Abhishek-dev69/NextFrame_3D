@@ -18,14 +18,14 @@ const hotspots = [
     id: "beams",
     top: "65%",
     left: "25%",
-    title: "Structural 3D Metaframe",
+    title: "Structural Metaframe",
     description: "High-tensile carbon-infused steel for unmatched structural integrity."
   },
   {
     id: "processor",
     top: "80%",
     left: "70%",
-    title: "NextFrame AR Metaglasses",
+    title: "NextFrame Metaglass 2.0",
     description: "Edge-computing node rendering real-time spatial physics."
   }
 ];
@@ -99,7 +99,7 @@ export const HeroCanvas = () => {
   // Interpolation Tick (Lerp)
   useEffect(() => {
     let animationFrameId: number;
-    const factor = 0.06;
+    const factor = 0.05;
 
     const tick = () => {
       currentFrame.current += (targetFrame.current - currentFrame.current) * factor;
@@ -166,8 +166,8 @@ export const HeroCanvas = () => {
   const opacity = useTransform(scrollYProgress, [0.98, 1], [1, 0]);
 
   return (
-    // Height set to 1000vh for a very long, cinematic scroll duration
-    <div ref={containerRef} className="relative h-[1000vh] bg-black">
+    // Height set to 1200vh for a very long, cinematic scroll duration
+    <div ref={containerRef} className="relative h-[1200vh] bg-black">
       <motion.div 
         style={{ scale, x, y, opacity }}
         className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center transform-origin-center rounded-3xl"
