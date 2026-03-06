@@ -19,7 +19,7 @@ const hotspots = [
     id: "beams",
     top: "65%",
     left: "25%",
-    title: "Structural Metaframe",
+    title: "Reinforced 3D Metaframe",
     description: "High-tensile carbon-infused steel for unmatched structural integrity."
   },
   {
@@ -100,7 +100,7 @@ export const HeroCanvas = () => {
   // Interpolation Tick (Lerp)
   useEffect(() => {
     let animationFrameId: number;
-    const factor = 0.06;
+    const factor = 0.05;
 
     const tick = () => {
       currentFrame.current += (targetFrame.current - currentFrame.current) * factor;
