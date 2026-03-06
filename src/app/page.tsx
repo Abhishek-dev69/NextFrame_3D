@@ -8,7 +8,7 @@ import { ProjectsSection } from "@/components/ProjectsSection";
 import { MissionSection } from "@/components/MissionSection";
 import { IndustrySolutions } from "@/components/IndustrySolutions";
 import { MetaglassesShowcase } from "@/components/MetaglassesShowcase";
-import { ContactForm } from "@/components/ContactForm";
+import { BookingSection } from "@/components/BookingSection";
 import { FloatingMetaglassIcon } from "@/components/FloatingMetaglassIcon";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
 
@@ -48,9 +48,9 @@ export default function Home() {
       <div className="h-20 bg-gradient-to-b from-[#0a0a0a] to-black" />
       <MetaglassesShowcase />
 
-      {/* 6. Consultation CTA */}
+      {/* 6. Booking & Consultation */}
       <div id="contact" />
-      <ContactForm />
+      <BookingSection />
       
       <footer className="py-12 text-center text-sm text-gray-600 bg-black border-t border-white/5 relative z-50">
         <p>&copy; {new Date().getFullYear()} NextFrame. All rights reserved. Built by Shrey Bhanusali.</p>
