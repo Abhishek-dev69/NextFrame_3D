@@ -127,7 +127,9 @@ export const HeroCanvas = () => {
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     // We update the target, not the actual draw. The tick() loop handles the chase.
     if (loaded && images.length > 0) {
-       targetFrame.current = latest * (FRAME_COUNT - 1);
+       // Assemble fully by 80% scroll progress so user can see it before it scales away
+       const progress = Math.min(1, latest / 0.8);
+       targetFrame.current = progress * (FRAME_COUNT - 1);
     }
   });
 
@@ -157,7 +159,7 @@ export const HeroCanvas = () => {
 
   const showHotspots = activeFrameIndex > 65;
 
-  // Scale down and move towards bottom-right at the very end of the scroll
+  // Scale down and move towards bottom-right at the very end of the scroll (95% to 100%)
   const scale = useTransform(scrollYProgress, [0.95, 1], [1, 0.1]);
   const x = useTransform(scrollYProgress, [0.95, 1], ["0%", "45%"]);
   const y = useTransform(scrollYProgress, [0.95, 1], ["0%", "45%"]);
@@ -183,8 +185,9 @@ export const HeroCanvas = () => {
           style={{ opacity: loaded ? 1 : 0 }}
         />
         
-        {/* Gradient Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80 pointer-events-none" />
+        {/* Gradient Overlay for Text Readability - Simplified to uniform dark wash + bottom gradient  */}
+        <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none" />
 
         {/* Overlay Text Content (Fades out via framer motion if needed, or stays static) */}
         <motion.div 
@@ -192,9 +195,9 @@ export const HeroCanvas = () => {
           animate={{ opacity: activeFrameIndex > 20 ? 0 : 1 }}
           transition={{ duration: 1 }}
         >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-white tracking-tighter max-w-5xl mx-auto drop-shadow-2xl">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-white tracking-tighter max-w-5xl mx-auto drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
             NextFrame: <br />
-            <span className="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-500">
+            <span className="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-400 drop-shadow-md">
               Visualizing the Future <br/> of Architecture.
             </span>
           </h1>
