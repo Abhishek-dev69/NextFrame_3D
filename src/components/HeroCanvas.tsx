@@ -100,7 +100,7 @@ export const HeroCanvas = () => {
   // Interpolation Tick (Lerp)
   useEffect(() => {
     let animationFrameId: number;
-    const factor = 0.05;
+    const factor = 0.12;
 
     const tick = () => {
       currentFrame.current += (targetFrame.current - currentFrame.current) * factor;
@@ -128,9 +128,7 @@ export const HeroCanvas = () => {
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     // We update the target, not the actual draw. The tick() loop handles the chase.
     if (loaded && images.length > 0) {
-       // Assemble fully by 100% / 1.2 scroll — allows room to breathe before shrinking
-       const progress = Math.min(1, latest / 1.2);
-       targetFrame.current = progress * (FRAME_COUNT - 1);
+       targetFrame.current = latest * (FRAME_COUNT - 1);
     }
   });
 
@@ -164,7 +162,7 @@ export const HeroCanvas = () => {
 
   return (
     // Height set to 1500vh for the most cinematic scroll duration possible
-    <div ref={containerRef} className="relative h-[1500vh] bg-black">
+    <div ref={containerRef} className="relative h-[600vh] bg-black">
       <motion.div 
         style={{ touchAction: 'pan-y' }}
         className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
