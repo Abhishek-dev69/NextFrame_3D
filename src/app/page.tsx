@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { ServicesSection } from "@/components/ServicesSection";
 import { AboutSection } from "@/components/AboutSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
+import { VRGlassesGlimpse } from "@/components/VRGlassesGlimpse";
 import { MissionSection } from "@/components/MissionSection";
 import { VRGlimpseSection } from "@/components/VRGlimpseSection";
 import { IndustrySolutions } from "@/components/IndustrySolutions";
@@ -36,6 +37,9 @@ export default function Home() {
       {/* 2. Our Projects */}
       <div className="h-20 bg-gradient-to-b from-black to-[#050505] border-t border-white/5" />
       <ProjectsSection />
+
+      {/* VR Glasses Glimpse — headset scroll reveal */}
+      <VRGlassesGlimpse />
 
       {/* 3. Our Mission */}
       <div className="h-20 bg-gradient-to-b from-[#050505] to-black border-t border-white/5" />
