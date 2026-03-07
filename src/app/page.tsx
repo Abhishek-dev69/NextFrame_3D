@@ -9,7 +9,6 @@ import { ClientsMarquee } from "@/components/ClientsMarquee";
 import { MissionSection } from "@/components/MissionSection";
 import { VRGlimpseSection } from "@/components/VRGlimpseSection";
 import { IndustrySolutions } from "@/components/IndustrySolutions";
-import { MetaglassesShowcase } from "@/components/MetaglassesShowcase";
 import { BookingSection } from "@/components/BookingSection";
 import { FloatingMetaglassIcon } from "@/components/FloatingMetaglassIcon";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
@@ -53,9 +52,6 @@ export default function Home() {
       <div className="h-20 bg-gradient-to-b from-black to-[#0a0a0a] border-t border-white/5" />
       <IndustrySolutions />
 
-      {/* 5. Exploded Hardware View */}
-      <div className="h-20 bg-gradient-to-b from-[#0a0a0a] to-black" />
-      <MetaglassesShowcase />
 
       {/* 6. Booking & Consultation */}
       <div id="contact" />
