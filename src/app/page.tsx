@@ -15,6 +15,9 @@ import { NoiseOverlay } from "@/components/NoiseOverlay";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import { IntroAnimation } from "@/components/IntroAnimation";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { BookDemoCTA } from "@/components/BookDemoCTA";
+import { ParallaxGrid } from "@/components/ParallaxGrid";
 
 export default function Home() {
   return (
@@ -28,6 +31,12 @@ export default function Home() {
 
       {/* Scroll progress bar */}
       <ScrollProgressBar />
+
+      {/* Smooth scroll engine */}
+      <SmoothScroll />
+
+      {/* Parallax dot grid — behind everything */}
+      <ParallaxGrid />
 
       {/* Global Grain Polish */}
       <NoiseOverlay />
@@ -145,6 +154,9 @@ export default function Home() {
           <p className="text-xs text-gray-700">Built by Abhishek Singh</p>
         </div>
       </footer>
+
+      {/* Book Demo floating CTA */}
+      <BookDemoCTA />
 
       {/* Persistent floating guide */}
       <FloatingMetaglassIcon />
