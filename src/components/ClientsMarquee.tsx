@@ -13,53 +13,67 @@ const CLIENT_LOGOS = [
   "/clients/client_06.webp",
 ];
 
-// Duplicate 4× for seamless seamless infinite loop
 const LOGOS = [...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS];
 
 export const ClientsMarquee = () => {
   return (
-    <section className="relative bg-black py-20 z-10 overflow-hidden">
-      {/* Edge fade masks */}
-      <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+    <section id="projects" className="relative bg-black py-24 z-10 overflow-hidden">
+      {/* Ambient background glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-blue-900/8 rounded-full blur-[120px]" />
+      </div>
 
-      {/* Subtle top label */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="text-center text-[10px] font-mono tracking-[0.35em] uppercase text-white/20 mb-12"
-      >
-        Trusted Partners
-      </motion.p>
+      {/* ── Section heading ─────────────────────────────── */}
+      <div className="max-w-6xl mx-auto px-6 mb-16 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8 }}
+        >
+          <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-blue-400 mb-4">
+            Portfolio
+          </p>
+          <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">
+            Our{" "}
+            <span className="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-gray-200 to-gray-500">
+              Clients
+            </span>
+          </h2>
+          <p className="mt-4 text-gray-500 font-light max-w-md mx-auto leading-relaxed">
+            Developers and architects across Gujarat who chose NextFrame to bring their projects to life.
+          </p>
+          <div className="mt-6 w-12 h-px bg-gradient-to-r from-blue-500 to-red-400 mx-auto" />
+        </motion.div>
+      </div>
 
-      {/* Marquee row */}
+      {/* ── Marquee ─────────────────────────────────────── */}
+      {/* Left / right fades */}
+      <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+
       <div className="flex overflow-hidden">
         <motion.div
-          className="flex items-center gap-20"
+          className="flex items-center gap-24"
           animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            duration: 28,
-            ease: "linear",
-            repeat: Infinity,
-          }}
+          transition={{ duration: 32, ease: "linear", repeat: Infinity }}
           style={{ width: "max-content" }}
         >
           {LOGOS.map((src, i) => (
-            <div
+            <motion.div
               key={i}
-              className="flex-shrink-0 flex items-center justify-center"
-              style={{ width: 200, height: 100 }}
+              whileHover={{ scale: 1.12, opacity: 1 }}
+              className="flex-shrink-0 flex items-center justify-center cursor-pointer"
+              style={{ width: 260, height: 130 }}
             >
               <Image
                 src={src}
                 alt={`Client ${(i % CLIENT_LOGOS.length) + 1}`}
-                width={200}
-                height={100}
-                className="w-full h-full object-contain filter invert opacity-50 hover:opacity-90 transition-all duration-500 hover:scale-110"
+                width={260}
+                height={130}
+                className="w-full h-full object-contain filter invert opacity-40 hover:opacity-100 transition-all duration-500"
               />
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>
