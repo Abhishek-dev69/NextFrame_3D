@@ -45,7 +45,7 @@ export const ContactForm = () => {
           <div className="relative p-[1px] rounded-3xl overflow-hidden bg-gradient-to-b from-white/10 to-transparent">
             <div className="bg-black/40 backdrop-blur-2xl px-8 py-12 md:p-12 rounded-3xl outline outline-1 outline-white/5 shadow-2xl">
               <h3 className="text-2xl font-light text-white mb-8 tracking-wide">
-                Consult with <span className="font-medium">Shrey Bhanusali</span>
+                Consult with <span className="font-medium">Shrey & Dhaval Bhanushali</span>
               </h3>
               
               {status === "success" ? (
@@ -55,7 +55,7 @@ export const ContactForm = () => {
                   className="py-12 text-center"
                 >
                   <p className="text-xl text-green-400 font-light mb-2">Message Received.</p>
-                  <p className="text-gray-400 text-sm">Shrey will reach out shortly.</p>
+                  <p className="text-gray-400 text-sm">Shrey or Dhaval will reach out shortly.</p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">

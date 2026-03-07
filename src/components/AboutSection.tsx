@@ -46,7 +46,7 @@ export const AboutSection = () => {
             environments that buyers can explore before a single brick is laid.
           </p>
           <p className="text-gray-500 font-light leading-relaxed">
-            Founded by Shrey Bhanusali, we partner with real estate developers, 
+            Founded by Shrey Bhanusali & Dhaval Bhanushali, we partner with real estate developers, 
             architects, and luxury builders across Gujarat to deliver photorealistic 
             walkthroughs, AR metaglass experiences, and interactive metaframe 
             platforms — collapsing the gap between imagination and reality.

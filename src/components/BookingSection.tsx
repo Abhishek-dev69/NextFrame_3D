@@ -108,7 +108,7 @@ function Toast({ show }: { show: boolean }) {
           exit={{ opacity: 0, y: 20, scale: 0.95 }}
           className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[200] bg-white text-black text-sm font-medium px-6 py-4 rounded-2xl shadow-2xl max-w-sm text-center"
         >
-          🗓️ Your consultation with Shrey Bhanusali has been scheduled.
+          🗓️ Your consultation with Shrey Bhanusali & Dhaval Bhanushali has been scheduled.
         </motion.div>
       )}
     </AnimatePresence>
@@ -177,7 +177,7 @@ export const BookingSection = () => {
             </span>
           </h2>
           <p className="mt-3 text-gray-500 font-light max-w-md">
-            Book a consultation with Shrey Bhanusali and experience what NextFrame Metaframes can do for your development.
+            Book a consultation with Shrey Bhanusali & Dhaval Bhanushali and experience what NextFrame Metaframes can do for your development.
           </p>
         </motion.div>
 
@@ -200,7 +200,7 @@ export const BookingSection = () => {
               </motion.div>
               <h3 className="text-2xl font-light text-white mb-2">You&apos;re booked.</h3>
               <p className="text-gray-400">
-                Shrey Bhanusali will confirm your{" "}
+                Shrey & Dhaval will confirm your{" "}
                 <span className="text-white">{selectedSlot}</span> slot on{" "}
                 <span className="text-white">
                   {selectedDate?.toLocaleDateString("en-IN", { weekday: "short", month: "long", day: "numeric" })}
@@ -300,7 +300,7 @@ export const BookingSection = () => {
                         {selectedDate.toLocaleDateString("en-IN", { weekday: "short", month: "short", day: "numeric" })}
                         {" · "}{selectedSlot}
                       </p>
-                      <p className="text-gray-500 text-xs mt-1">with Shrey Bhanusali · NextFrame</p>
+                      <p className="text-gray-500 text-xs mt-1">with Shrey & Dhaval Bhanushali · NextFrame</p>
                     </motion.div>
                   )}
 
@@ -319,7 +319,7 @@ export const BookingSection = () => {
                     )}
                   </button>
                   <p className="text-center text-xs text-gray-700 mt-3 font-mono">
-                    No payment required. Shrey will confirm via email.
+                    No payment required. Shrey or Dhaval will confirm via email.
                   </p>
                 </div>
               </div>
