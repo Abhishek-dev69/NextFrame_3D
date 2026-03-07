@@ -173,78 +173,78 @@ function ServiceCard({ svc }: { svc: typeof services[0] }) {
     <motion.div
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      whileHover={{ y: -6, scale: 1.015 }}
+      whileHover={{ y: -8, scale: 1.018 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       className="flex-shrink-0 relative rounded-2xl overflow-hidden cursor-default"
       style={{
         width: CARD_W,
-        minHeight: 320,
+        minHeight: 340,
+        background: hovered
+          ? `linear-gradient(145deg, ${svc.color}14 0%, #111 100%)`
+          : "#111111",
+        border: `1px solid ${hovered ? `${svc.color}45` : "rgba(255,255,255,0.10)"}`,
         boxShadow: hovered
-          ? `0 0 0 1px ${svc.color}40, 0 24px 60px ${svc.color}30, inset 0 1px 0 rgba(255,255,255,0.07)`
-          : `0 0 0 1px rgba(255,255,255,0.07), 0 8px 32px rgba(0,0,0,0.5)`,
-        transition: "box-shadow 0.45s ease",
+          ? `0 0 0 1px ${svc.color}30, 0 28px 70px ${svc.color}25, 0 8px 32px rgba(0,0,0,0.6)`
+          : `0 4px 24px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.04) inset`,
+        transition: "background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease",
       }}
     >
-      {/* Glassmorphism bg */}
+      {/* Top colour bleed */}
       <div
-        className="absolute inset-0 transition-all duration-500"
+        className="absolute top-0 left-0 right-0 h-28 pointer-events-none transition-opacity duration-500"
         style={{
-          background: hovered
-            ? `linear-gradient(145deg, ${svc.color}10 0%, rgba(0,0,0,0.85) 100%)`
-            : "linear-gradient(145deg, rgba(255,255,255,0.025) 0%, rgba(0,0,0,0.85) 100%)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
+          background: `linear-gradient(180deg, ${svc.color}15 0%, transparent 100%)`,
+          opacity: hovered ? 1 : 0.4,
         }}
       />
 
       {/* Ghost number */}
       <div
-        className="absolute top-4 right-5 text-[88px] font-black leading-none pointer-events-none select-none transition-all duration-500"
+        className="absolute top-3 right-5 text-[96px] font-black leading-none pointer-events-none select-none transition-all duration-500"
         style={{
           WebkitTextStroke: `1.5px ${svc.color}`,
           color: "transparent",
-          opacity: hovered ? 0.18 : 0.05,
+          opacity: hovered ? 0.2 : 0.07,
         }}
       >
         {svc.id}
       </div>
 
       {/* Content */}
-      <div className="relative p-8 flex flex-col h-full" style={{ minHeight: 320 }}>
+      <div className="relative p-8 flex flex-col" style={{ minHeight: 340 }}>
         {/* Icon */}
         <div
           className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-all duration-500"
           style={{
-            background: hovered ? `${svc.color}18` : "rgba(255,255,255,0.05)",
-            border: `1px solid ${hovered ? `${svc.color}35` : "rgba(255,255,255,0.08)"}`,
-            color: hovered ? svc.color : "rgba(255,255,255,0.45)",
-            boxShadow: hovered ? `0 0 24px ${svc.color}30` : "none",
+            background: hovered ? `${svc.color}20` : "rgba(255,255,255,0.06)",
+            border: `1px solid ${hovered ? `${svc.color}40` : "rgba(255,255,255,0.10)"}`,
+            color: hovered ? svc.color : "rgba(255,255,255,0.5)",
+            boxShadow: hovered ? `0 0 28px ${svc.color}35` : "none",
           }}
         >
           {svc.icon}
         </div>
 
-        <h3 className="text-xl font-semibold text-white tracking-tight mb-1">{svc.title}</h3>
+        <h3 className="text-[22px] font-semibold text-white tracking-tight mb-1">{svc.title}</h3>
         <p
-          className="text-[10px] font-mono tracking-widest uppercase mb-4 transition-colors duration-300"
-          style={{ color: hovered ? svc.color : "rgba(255,255,255,0.25)" }}
+          className="text-[10px] font-mono tracking-[0.22em] uppercase mb-4 transition-colors duration-300"
+          style={{ color: hovered ? svc.color : "rgba(255,255,255,0.28)" }}
         >
           {svc.tagline}
         </p>
-        <p className="text-gray-500 font-light text-sm leading-relaxed flex-1">{svc.description}</p>
+        <p className="text-gray-400 font-light text-[14px] leading-relaxed flex-1">{svc.description}</p>
 
         {/* Bottom bar */}
-        <div className="mt-6 h-px w-full bg-white/5 relative overflow-hidden">
+        <div className="mt-7 h-px w-full bg-white/8 relative overflow-hidden rounded-full">
           <motion.div
             className="absolute inset-y-0 left-0 rounded-full"
-            style={{ background: `linear-gradient(90deg, ${svc.color}, ${svc.color}80)` }}
+            style={{ background: `linear-gradient(90deg, ${svc.color}, ${svc.color}70)` }}
             animate={{ width: hovered ? "100%" : "22%" }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           />
-          {/* shimmer */}
           <motion.div
             className="absolute inset-y-0 w-16"
-            style={{ background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent)` }}
+            style={{ background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)` }}
             animate={{ x: ["-64px", "400px"] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "linear", repeatDelay: 0.8 }}
           />
@@ -253,3 +253,4 @@ function ServiceCard({ svc }: { svc: typeof services[0] }) {
     </motion.div>
   );
 }
+
