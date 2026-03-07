@@ -33,7 +33,7 @@ export const Navbar = () => {
         {/* Logo — bigger, no blend mode needed on white */}
         <a href="#" className="flex items-center">
           <Image
-            src="/logo-trimmed.png"
+            src="/logo-transparent.png"
             alt="NextFrame"
             width={500}
             height={80}

@@ -214,12 +214,11 @@ export const HeroCanvas = () => {
         >
           {/* Logo */}
           <Image
-            src="/logo-trimmed.png"
+            src="/logo-transparent.png"
             alt="NextFrame"
             width={900}
             height={147}
-            className="h-16 md:h-20 w-auto max-w-[80vw] object-contain mb-4 drop-shadow-[0_0_40px_rgba(255,255,255,0.25)]"
-            style={{ mixBlendMode: 'screen' }}
+            className="h-16 md:h-20 w-auto max-w-[80vw] object-contain mb-4"
             priority
           />
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-[0.15em] uppercase drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
