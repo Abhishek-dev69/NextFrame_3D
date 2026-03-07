@@ -12,10 +12,22 @@ import { IndustrySolutions } from "@/components/IndustrySolutions";
 import { BookingSection } from "@/components/BookingSection";
 import { FloatingMetaglassIcon } from "@/components/FloatingMetaglassIcon";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
+import { CustomCursor } from "@/components/CustomCursor";
+import { ScrollProgressBar } from "@/components/ScrollProgressBar";
+import { IntroAnimation } from "@/components/IntroAnimation";
 
 export default function Home() {
   return (
     <main className="bg-black text-white min-h-screen relative selection:bg-white/20">
+
+      {/* Intro splash — once per session */}
+      <IntroAnimation />
+
+      {/* Custom glowing cursor */}
+      <CustomCursor />
+
+      {/* Scroll progress bar */}
+      <ScrollProgressBar />
 
       {/* Global Grain Polish */}
       <NoiseOverlay />
