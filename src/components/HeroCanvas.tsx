@@ -216,9 +216,9 @@ export const HeroCanvas = () => {
           <Image
             src="/logo.png"
             alt="NextFrame"
-            width={560}
-            height={160}
-            className="h-32 md:h-44 w-auto object-contain mb-4 drop-shadow-[0_0_40px_rgba(255,255,255,0.2)]"
+            width={700}
+            height={200}
+            className="h-40 md:h-56 w-auto object-contain mb-4 drop-shadow-[0_0_60px_rgba(255,255,255,0.25)]"
             style={{ mixBlendMode: 'screen' }}
             priority
           />
