@@ -113,7 +113,7 @@ function LogoCard({ src, index, total }: { src: string; index: number; total: nu
     <motion.div
       whileHover={{ scale: 1.08, zIndex: 10 }}
       className="flex-shrink-0 relative mx-5 my-3"
-      style={{ width: 240, height: 120 }}
+      style={{ width: 300, height: 150 }}
     >
       {/* Card glassmorphism container */}
       <div
@@ -128,9 +128,9 @@ function LogoCard({ src, index, total }: { src: string; index: number; total: nu
         <Image
           src={src}
           alt={`Client ${(index % total) + 1}`}
-          width={200}
-          height={90}
-          className="w-[80%] h-[75%] object-contain filter invert opacity-45 group-hover:opacity-95 transition-all duration-500"
+          width={260}
+          height={110}
+          className="w-[88%] h-[82%] object-contain filter invert opacity-45 group-hover:opacity-95 transition-all duration-500"
         />
       </div>
     </motion.div>
