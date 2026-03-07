@@ -1,98 +1,198 @@
 "use client";
 
-import React from "react";
-import { motion, Variants } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const services = [
   {
-    title: "3D Metaframe Generation",
-    description: "Turning raw structural blueprints into habitable digital twins for large-scale building projects.",
+    id: "01",
+    title: "3D Walkthrough",
+    short: "Cinematic 3D room assembly",
+    description:
+      "Transform architectural blueprints into photorealistic 3D walkthroughs. Buyers experience every room, material, and lighting scenario before construction begins — reducing sales cycles by up to 60%.",
+    icon: "◈",
+    color: "from-blue-500/20 to-blue-900/10",
+    accent: "bg-blue-400",
+    border: "border-blue-500/20",
   },
   {
-    title: "Metaglass AR Visualization",
-    description: "Proprietary hardware integration allowing buyers to see finished interiors while standing in a construction shell.",
+    id: "02",
+    title: "VR Walkthrough",
+    short: "Full-immersion spatial experience",
+    description:
+      "Step inside the property using NextFrame Metaglass VR headsets. Walk through corridors, open doors, and feel the spatial proportions of a space that doesn't yet physically exist.",
+    icon: "⊙",
+    color: "from-red-500/20 to-red-900/10",
+    accent: "bg-red-400",
+    border: "border-red-500/20",
   },
   {
-    title: "Real-Time Photometric Staging",
-    description: "Dynamic material swapping and lighting simulation for luxury real estate pre-sales.",
+    id: "03",
+    title: "Pixel Streaming",
+    short: "Cloud-rendered, zero install",
+    description:
+      "Stream high-fidelity 3D environments directly to any browser or smart TV — no app download, no hardware dependency. Your buyers explore on their phone, tablet, or laptop in real time.",
+    icon: "◎",
+    color: "from-violet-500/20 to-violet-900/10",
+    accent: "bg-violet-400",
+    border: "border-violet-500/20",
+  },
+  {
+    id: "04",
+    title: "Plot Streaming",
+    short: "Live plot-level site visualisation",
+    description:
+      "Visualise individual plots within a township or layout in real time. Buyers select a plot on an interactive map and instantly see a rendered view from that exact vantage point.",
+    icon: "⬡",
+    color: "from-emerald-500/20 to-emerald-900/10",
+    accent: "bg-emerald-400",
+    border: "border-emerald-500/20",
   },
 ];
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)", y: 20 },
-  visible: { 
-    opacity: 1, 
-    clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-    y: 0,
-    transition: { 
-      type: "spring", stiffness: 60, damping: 20, duration: 0.8
-    } 
-  },
-};
-
 export const ServicesSection = () => {
+  const [active, setActive] = useState<string | null>(null);
+
   return (
-    <section className="relative py-32 bg-black px-6 z-10">
+    <section id="services" className="relative py-32 bg-black px-6 z-10 overflow-hidden">
+      {/* Subtle ambient blob */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-white/[0.015] rounded-full blur-[140px] pointer-events-none" />
+
       <div className="max-w-7xl mx-auto">
+        {/* Heading */}
         <div className="mb-20 text-center">
-          <motion.h2 
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 mb-4"
+          >
+            What we offer
+          </motion.p>
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
             className="text-4xl md:text-5xl font-light text-white tracking-tight"
           >
-            The <span className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-gray-200 to-gray-500">Metaframe</span> Advantage
+            Our{" "}
+            <span className="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+              Services
+            </span>
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-6 text-lg text-gray-400 font-light max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.25 }}
+            className="mt-5 text-gray-500 font-light max-w-xl mx-auto"
           >
-            Pioneering the intersection of architectural intent and spatial reality.
+            Tap any card to explore. Four technologies. One mission — sell before you build.
           </motion.p>
         </div>
 
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-          variants={containerVariants}
+        {/* Cards grid */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-80px" }}
+          variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
         >
-          {services.map((service, index) => (
-            <motion.div 
-              key={index} 
-              variants={cardVariants}
-              className="relative group h-full"
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              <div className="h-full bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl p-10 flex flex-col justify-between hover:border-white/20 transition-colors duration-500">
-                <div>
-                  <div className="text-gray-500 text-sm font-mono tracking-widest mb-6">0{index + 1}</div>
-                  <h3 className="text-2xl font-light text-white mb-4 leading-tight">{service.title}</h3>
-                  <p className="text-gray-400 font-light leading-relaxed">
-                    {service.description}
-                  </p>
+          {services.map((svc) => {
+            const isActive = active === svc.id;
+            return (
+              <motion.div
+                key={svc.id}
+                variants={{
+                  hidden: { opacity: 0, y: 40, scale: 0.96 },
+                  visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 60, damping: 18 } },
+                }}
+                onClick={() => setActive(isActive ? null : svc.id)}
+                className={`relative cursor-pointer rounded-3xl border transition-all duration-500 select-none overflow-hidden
+                  ${isActive ? `${svc.border} shadow-2xl` : "border-white/8 hover:border-white/20"}`}
+                whileHover={{ y: -4 }}
+                whileTap={{ scale: 0.98 }}
+                layout
+              >
+                {/* Card background */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${svc.color} transition-opacity duration-500`}
+                  style={{ opacity: isActive ? 1 : 0.4 }}
+                />
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-xl" />
+
+                <div className="relative p-8 md:p-10">
+                  {/* Top row */}
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="text-2xl text-white/60"
+                        style={{ fontFamily: "monospace" }}
+                      >
+                        {svc.icon}
+                      </span>
+                      <span className="text-[10px] font-mono text-white/25 tracking-widest">
+                        {svc.id}
+                      </span>
+                    </div>
+                    <motion.div
+                      animate={{ rotate: isActive ? 45 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="w-7 h-7 rounded-full border border-white/15 flex items-center justify-center"
+                    >
+                      <span className="text-white/40 text-lg leading-none">+</span>
+                    </motion.div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl md:text-2xl font-semibold text-white mb-1 tracking-tight">
+                    {svc.title}
+                  </h3>
+                  <p className="text-sm text-white/40 font-light">{svc.short}</p>
+
+                  {/* Expanded detail — slides down */}
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                        animate={{ opacity: 1, height: "auto", marginTop: 20 }}
+                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className={`h-px w-12 ${svc.accent} mb-4 opacity-60`} />
+                        <p className="text-gray-300 font-light leading-relaxed text-[15px]">
+                          {svc.description}
+                        </p>
+                        <motion.button
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.2 }}
+                          className="mt-6 text-xs font-mono tracking-[0.2em] uppercase text-white/50 hover:text-white transition-colors"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            const el = document.getElementById("contact");
+                            el?.scrollIntoView({ behavior: "smooth" });
+                          }}
+                        >
+                          Book a demo →
+                        </motion.button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Bottom accent line */}
+                  <div
+                    className={`absolute bottom-0 left-0 h-px transition-all duration-700 ${svc.accent} opacity-30`}
+                    style={{ width: isActive ? "100%" : "30%" }}
+                  />
                 </div>
-                <div className="mt-12">
-                  <div className="h-px w-full bg-gradient-to-r from-white/20 to-transparent group-hover:w-full transition-all duration-700 ease-out" />
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
