@@ -1,381 +1,268 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion, useMotionValue, animate, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const services = [
   {
     id: "01",
     title: "3D Walkthrough",
-    tagline: "See it before it's built",
+    tagline: "Cinematic room-by-room experience",
     description:
-      "Transform architectural blueprints into photorealistic 3D walkthroughs. Buyers experience every room, material, and lighting scenario before construction begins — reducing sales cycles by up to 60%.",
+      "Transform architectural blueprints into photorealistic, interactive 3D walkthroughs. Buyers experience every room, material finish, and lighting condition before a single slab is poured — compressing sales cycles by up to 60%.",
+    highlights: ["192-frame HD sequence", "Custom material library", "Day/night lighting toggle", "Delivered in 48 hrs"],
     icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
-        <path d="M6 34L24 10l18 24H6z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-        <circle cx="32" cy="16" r="5" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M6 34l9-9 6 6 5-7 16 10" stroke="currentColor" strokeWidth="1.2" opacity="0.45"/>
+      <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
+        <path d="M4 24L16 6l12 18H4z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>
+        <circle cx="22" cy="11" r="3.5" stroke="currentColor" strokeWidth="1.4"/>
+        <path d="M4 24l6-6 4 4 4-5 10 7" stroke="currentColor" strokeWidth="1.1" opacity="0.4"/>
       </svg>
     ),
-    gradientFrom: "#3b82f6",
-    gradientTo: "#1e40af",
-    glow: "rgba(59,130,246,0.5)",
-    border: "rgba(59,130,246,0.3)",
-    bg: "from-blue-900/30",
+    color: "#3b82f6",
   },
   {
     id: "02",
     title: "VR Walkthrough",
-    tagline: "Full spatial immersion",
+    tagline: "Full spatial immersion, pre-construction",
     description:
-      "Step inside the property using NextFrame Metaglass VR headsets. Walk through corridors, open doors, and feel the spatial proportions of a space that doesn't yet physically exist.",
+      "Step inside the property using NextFrame Metaglass headsets. Clients walk through corridors, interact with doors and fixtures, and feel the true proportions of a space that doesn't yet physically exist.",
+    highlights: ["1:1 spatial accuracy", "Metaglass headset compatible", "On-site buyer sessions", "No app install required"],
     icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
-        <rect x="4" y="14" width="40" height="22" rx="11" stroke="currentColor" strokeWidth="1.5"/>
-        <circle cx="15" cy="25" r="5" stroke="currentColor" strokeWidth="1.5"/>
-        <circle cx="33" cy="25" r="5" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M20 25h8" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M24 10v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
+        <rect x="2" y="10" width="28" height="14" rx="7" stroke="currentColor" strokeWidth="1.4"/>
+        <circle cx="10" cy="17" r="3.5" stroke="currentColor" strokeWidth="1.4"/>
+        <circle cx="22" cy="17" r="3.5" stroke="currentColor" strokeWidth="1.4"/>
+        <path d="M13.5 17h5" stroke="currentColor" strokeWidth="1.4"/>
       </svg>
     ),
-    gradientFrom: "#ef4444",
-    gradientTo: "#b91c1c",
-    glow: "rgba(239,68,68,0.5)",
-    border: "rgba(239,68,68,0.3)",
-    bg: "from-red-900/30",
+    color: "#ef4444",
   },
   {
     id: "03",
     title: "Pixel Streaming",
     tagline: "Cloud-rendered, zero install",
     description:
-      "Stream high-fidelity 3D environments directly to any browser or smart TV — no app download, no hardware dependency. Your buyers explore on their phone, tablet, or laptop in real time.",
+      "Stream high-fidelity 3D environments directly to any browser or smart TV. No downloads, no hardware dependency. Your buyers experience the property on their phone, tablet, or laptop in real time from anywhere in the world.",
+    highlights: ["Browser-native, no app", "4K cloud rendering", "Smart TV compatible", "Real-time material swap"],
     icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
-        <rect x="6" y="8" width="26" height="20" rx="3" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M12 32h16M20 28v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <circle cx="38" cy="14" r="7" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M35.5 14l2 2 3.5-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+      <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
+        <rect x="4" y="5" width="17" height="14" rx="2" stroke="currentColor" strokeWidth="1.4"/>
+        <path d="M8 22h10M13 19v3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+        <circle cx="26" cy="9" r="5" stroke="currentColor" strokeWidth="1.4"/>
+        <path d="M24 9l1.3 1.3 2.7-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
       </svg>
     ),
-    gradientFrom: "#a855f7",
-    gradientTo: "#7c3aed",
-    glow: "rgba(168,85,247,0.5)",
-    border: "rgba(168,85,247,0.3)",
-    bg: "from-violet-900/30",
+    color: "#a855f7",
   },
   {
     id: "04",
     title: "Plot Streaming",
-    tagline: "Live plot-level visualisation",
+    tagline: "Live plot-level site visualisation",
     description:
-      "Visualise individual plots within a township or layout in real time. Buyers select a plot on an interactive map and instantly see a rendered view from that exact vantage point.",
+      "Visualise individual plots within a township or residential layout in real time. Buyers pick a plot on an interactive site map and instantly see a rendered view from that exact vantage point, with horizon, neighbours, and sunlight.",
+    highlights: ["Interactive site map", "Per-plot camera positions", "Sun & shadow simulation", "Landscape integration"],
     icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
-        <path d="M8 40L24 8l16 32H8z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-        <path d="M16 40l8-16 8 16" stroke="currentColor" strokeWidth="1.2" opacity="0.45"/>
-        <path d="M8 30h32" stroke="currentColor" strokeWidth="1" opacity="0.35"/>
-        <circle cx="24" cy="22" r="2.5" fill="currentColor" opacity="0.6"/>
+      <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
+        <path d="M5 27L16 5l11 22H5z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>
+        <path d="M10 27l6-12 6 12" stroke="currentColor" strokeWidth="1.1" opacity="0.4"/>
+        <circle cx="16" cy="14" r="1.8" fill="currentColor" opacity="0.6"/>
       </svg>
     ),
-    gradientFrom: "#10b981",
-    gradientTo: "#065f46",
-    glow: "rgba(16,185,129,0.5)",
-    border: "rgba(16,185,129,0.3)",
-    bg: "from-emerald-900/30",
+    color: "#10b981",
   },
 ];
 
-const CARD_WIDTH = 380;
-const CARD_GAP = 24;
-
 export const ServicesSection = () => {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
   const [active, setActive] = useState(0);
-  const [dragging, setDragging] = useState(false);
-  const [maxDrag, setMaxDrag] = useState(0);
-
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const total = services.length * (CARD_WIDTH + CARD_GAP) - CARD_GAP;
-    const visible = el.offsetWidth;
-    setMaxDrag(Math.max(0, total - visible));
-  }, []);
-
-  const goTo = (i: number) => {
-    const offset = i * (CARD_WIDTH + CARD_GAP);
-    const clamped = Math.min(offset, maxDrag);
-    animate(x, -clamped, { type: "spring", stiffness: 260, damping: 32 });
-    setActive(i);
-  };
-
-  // Keep active dot in sync with drag position
-  const onDragEnd = () => {
-    setDragging(false);
-    const curr = -x.get();
-    const idx = Math.round(curr / (CARD_WIDTH + CARD_GAP));
-    const clamped = Math.max(0, Math.min(idx, services.length - 1));
-    setActive(clamped);
-    goTo(clamped);
-  };
+  const svc = services[active];
 
   return (
     <section id="services" className="relative py-28 bg-black overflow-hidden">
-      {/* Background atmosphere */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[700px] h-[500px] rounded-full blur-[180px]"
-          style={{ background: "radial-gradient(ellipse, rgba(99,102,241,0.06), transparent 70%)" }} />
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-      </div>
+      {/* Subtle top/bottom lines */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
 
-      <div className="relative z-10">
-        {/* ── Header ─────────────────────────────── */}
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
+        {/* ── Header row ─────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-7xl mx-auto px-6 md:px-10 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6"
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4"
         >
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full border border-white/10 bg-white/4">
-              <motion.span
-                animate={{ scale: [1, 1.5, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="w-1.5 h-1.5 rounded-full bg-white/50"
-              />
-              <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/30">What we deliver</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl font-light text-white tracking-tight">
-              Our{" "}
-              <span className="font-bold italic bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-gray-500">
-                Services
-              </span>
-            </h2>
-            <p className="mt-3 text-gray-500 font-light max-w-md">
-              Four technologies, one mission — sell before you build.
+            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 mb-3">
+              What we deliver
             </p>
+            <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">
+              Our{" "}
+              <span className="font-semibold italic">Services</span>
+            </h2>
           </div>
-
-          {/* Arrow controls */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => goTo(Math.max(0, active - 1))}
-              disabled={active === 0}
-              className="w-11 h-11 rounded-full border border-white/12 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 disabled:opacity-25 transition-all duration-300 active:scale-95"
-            >
-              ←
-            </button>
-            <button
-              onClick={() => goTo(Math.min(services.length - 1, active + 1))}
-              disabled={active === services.length - 1}
-              className="w-11 h-11 rounded-full border border-white/12 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 disabled:opacity-25 transition-all duration-300 active:scale-95"
-            >
-              →
-            </button>
-          </div>
-        </motion.div>
-
-        {/* ── Horizontal track ───────────────────── */}
-        <div ref={trackRef} className="overflow-hidden pl-6 md:pl-10">
-          <motion.div
-            drag="x"
-            dragConstraints={{ left: -maxDrag, right: 0 }}
-            dragTransition={{ bounceStiffness: 300, bounceDamping: 40 }}
-            dragElastic={0.08}
-            onDragStart={() => setDragging(true)}
-            onDragEnd={onDragEnd}
-            style={{ x }}
-            className="flex gap-6 cursor-grab active:cursor-grabbing w-max"
-          >
-            {services.map((svc, i) => (
-              <ServiceCard
-                key={svc.id}
-                svc={svc}
-                index={i}
-                active={active === i}
-                dragging={dragging}
-                onClick={() => !dragging && goTo(i)}
-              />
-            ))}
-            {/* Right spacer */}
-            <div className="w-6 md:w-10 flex-shrink-0" />
-          </motion.div>
-        </div>
-
-        {/* ── Progress dots ──────────────────────── */}
-        <div className="flex justify-center gap-2 mt-10">
-          {services.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              className="transition-all duration-400"
-            >
-              <motion.div
-                animate={{ width: active === i ? 28 : 8, background: active === i ? "#fff" : "rgba(255,255,255,0.2)" }}
-                transition={{ duration: 0.35 }}
-                className="h-2 rounded-full"
-              />
-            </button>
-          ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          className="flex justify-center mt-12"
-        >
           <a
             href="#contact"
-            className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-white text-black text-sm font-medium tracking-wide hover:bg-gray-100 active:scale-95 transition-all"
+            className="self-start md:self-auto inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition-colors duration-300 font-mono tracking-wide"
           >
             Start a project <span>↗</span>
           </a>
         </motion.div>
+
+        {/* ── Main layout — left tabs + right panel ─ */}
+        <div className="grid grid-cols-1 md:grid-cols-[320px_1fr] gap-0 border border-white/8 rounded-2xl overflow-hidden">
+
+          {/* Left — service list */}
+          <div className="border-b md:border-b-0 md:border-r border-white/8">
+            {services.map((s, i) => {
+              const isActive = i === active;
+              return (
+                <motion.button
+                  key={s.id}
+                  onClick={() => setActive(i)}
+                  className={`w-full text-left px-6 py-5 flex items-center gap-4 transition-colors duration-300 relative border-b border-white/6 last:border-b-0 group
+                    ${isActive ? "bg-white/4" : "hover:bg-white/[0.02]"}`}
+                  whileTap={{ scale: 0.99 }}
+                >
+                  {/* Active indicator bar */}
+                  <motion.div
+                    className="absolute left-0 top-0 bottom-0 w-[2px] rounded-r"
+                    animate={{ opacity: isActive ? 1 : 0, scaleY: isActive ? 1 : 0.4 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ backgroundColor: s.color }}
+                  />
+
+                  {/* Icon */}
+                  <div
+                    className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300"
+                    style={{
+                      background: isActive ? `${s.color}18` : "rgba(255,255,255,0.04)",
+                      border: `1px solid ${isActive ? `${s.color}35` : "rgba(255,255,255,0.07)"}`,
+                      color: isActive ? s.color : "rgba(255,255,255,0.4)",
+                    }}
+                  >
+                    {s.icon}
+                  </div>
+
+                  {/* Text */}
+                  <div className="min-w-0">
+                    <p className={`text-sm font-medium truncate transition-colors duration-300 ${isActive ? "text-white" : "text-white/50 group-hover:text-white/70"}`}>
+                      {s.title}
+                    </p>
+                    <p className="text-[11px] text-white/25 font-light truncate mt-0.5">
+                      {s.tagline}
+                    </p>
+                  </div>
+
+                  {/* Number */}
+                  <span className="ml-auto text-[10px] font-mono text-white/15 flex-shrink-0">
+                    {s.id}
+                  </span>
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* Right — detail panel */}
+          <div className="relative overflow-hidden" style={{ minHeight: 380 }}>
+            {/* Colour glow bg */}
+            <div
+              className="absolute inset-0 transition-all duration-700 pointer-events-none"
+              style={{
+                background: `radial-gradient(ellipse at 80% 50%, ${svc.color}0c 0%, transparent 60%)`,
+              }}
+            />
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={svc.id}
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -24 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="relative p-8 md:p-12 h-full flex flex-col justify-between"
+              >
+                {/* Top */}
+                <div>
+                  {/* Service number */}
+                  <p className="text-[10px] font-mono tracking-[0.3em] text-white/20 mb-6">
+                    {svc.id} / 04
+                  </p>
+
+                  <h3 className="text-2xl md:text-3xl font-semibold text-white tracking-tight mb-3">
+                    {svc.title}
+                  </h3>
+                  <p
+                    className="text-xs font-mono tracking-widest uppercase mb-6"
+                    style={{ color: svc.color }}
+                  >
+                    {svc.tagline}
+                  </p>
+
+                  <p className="text-gray-400 font-light leading-relaxed text-[15px] max-w-xl">
+                    {svc.description}
+                  </p>
+                </div>
+
+                {/* Bottom — highlights */}
+                <div className="mt-10">
+                  <div className="h-px w-full bg-white/6 mb-8" />
+                  <div className="grid grid-cols-2 gap-3">
+                    {svc.highlights.map((h, i) => (
+                      <motion.div
+                        key={h}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 + i * 0.06, duration: 0.35 }}
+                        className="flex items-center gap-2.5"
+                      >
+                        <div
+                          className="w-1 h-1 rounded-full flex-shrink-0"
+                          style={{ backgroundColor: svc.color }}
+                        />
+                        <span className="text-xs text-white/50 font-light">{h}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* CTA */}
+                  <motion.a
+                    href="#contact"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                    className="inline-flex items-center gap-2 mt-8 px-5 py-2.5 rounded-full text-xs font-mono tracking-widest uppercase transition-all duration-300 hover:opacity-80"
+                    style={{
+                      background: `${svc.color}14`,
+                      border: `1px solid ${svc.color}30`,
+                      color: svc.color,
+                    }}
+                  >
+                    Book a demo →
+                  </motion.a>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Right arrow nav */}
+            <div className="absolute bottom-8 right-8 flex gap-2">
+              <button
+                onClick={() => setActive((a) => Math.max(0, a - 1))}
+                disabled={active === 0}
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-white hover:border-white/25 disabled:opacity-20 transition-all text-xs"
+              >
+                ←
+              </button>
+              <button
+                onClick={() => setActive((a) => Math.min(services.length - 1, a + 1))}
+                disabled={active === services.length - 1}
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-white hover:border-white/25 disabled:opacity-20 transition-all text-xs"
+              >
+                →
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
 };
-
-function ServiceCard({ svc, index, active, dragging, onClick }: {
-  svc: typeof services[0]; index: number; active: boolean; dragging: boolean; onClick: () => void;
-}) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      onClick={onClick}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      whileHover={{ y: -8, scale: 1.015 }}
-      className="flex-shrink-0 relative rounded-3xl overflow-hidden select-none"
-      style={{
-        width: CARD_WIDTH,
-        minHeight: 480,
-        cursor: dragging ? "grabbing" : "pointer",
-        boxShadow: (hovered || active)
-          ? `0 0 0 1px ${svc.border}, 0 28px 70px ${svc.glow}, inset 0 1px 0 rgba(255,255,255,0.08)`
-          : `0 0 0 1px rgba(255,255,255,0.07), 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)`,
-        transition: "box-shadow 0.5s ease",
-      }}
-    >
-      {/* Glassmorphism bg */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: (hovered || active)
-            ? `linear-gradient(145deg, ${svc.gradientFrom}18 0%, rgba(0,0,0,0.82) 100%)`
-            : "linear-gradient(145deg, rgba(255,255,255,0.028) 0%, rgba(0,0,0,0.8) 100%)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          transition: "background 0.5s ease",
-        }}
-      />
-
-      {/* Top colour wash */}
-      <div
-        className={`absolute top-0 left-0 right-0 h-48 bg-gradient-to-b ${svc.bg} to-transparent transition-opacity duration-500`}
-        style={{ opacity: (hovered || active) ? 1 : 0.4 }}
-      />
-
-      {/* Content */}
-      <div className="relative p-9 flex flex-col h-full" style={{ minHeight: 480 }}>
-        {/* Top row */}
-        <div className="flex items-start justify-between mb-8">
-          <div
-            className="p-3.5 rounded-2xl transition-all duration-500"
-            style={{
-              background: (hovered || active)
-                ? `linear-gradient(135deg, ${svc.gradientFrom}25, transparent)`
-                : "rgba(255,255,255,0.06)",
-              border: `1px solid ${(hovered || active) ? svc.border : "rgba(255,255,255,0.08)"}`,
-              color: (hovered || active) ? svc.gradientFrom : "rgba(255,255,255,0.5)",
-              boxShadow: (hovered || active) ? `0 0 28px ${svc.glow}` : "none",
-            }}
-          >
-            {svc.icon}
-          </div>
-          <span
-            className="text-[9px] font-mono px-2.5 py-1 rounded-full border tracking-widest uppercase"
-            style={{
-              background: `${svc.gradientFrom}12`,
-              borderColor: svc.border,
-              color: svc.gradientFrom,
-            }}
-          >
-            {svc.id}
-          </span>
-        </div>
-
-        {/* Ghost number */}
-        <div
-          className="absolute bottom-8 right-8 text-[110px] font-black leading-none pointer-events-none select-none"
-          style={{
-            WebkitTextStroke: `1.5px ${svc.gradientFrom}`,
-            color: "transparent",
-            opacity: (hovered || active) ? 0.12 : 0.04,
-            transition: "opacity 0.5s ease",
-          }}
-        >
-          {svc.id}
-        </div>
-
-        {/* Text */}
-        <h3 className="text-2xl md:text-[26px] font-semibold text-white tracking-tight mb-2">
-          {svc.title}
-        </h3>
-        <p className="text-[11px] font-mono text-white/30 tracking-[0.2em] uppercase mb-5">
-          {svc.tagline}
-        </p>
-        <p className="text-gray-400 font-light leading-relaxed text-[15px] flex-1">
-          {svc.description}
-        </p>
-
-        {/* CTA link */}
-        <AnimatePresence>
-          {(hovered || active) && (
-            <motion.a
-              href="#contact"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center gap-2 mt-7 text-xs font-mono tracking-[0.15em] uppercase group/btn"
-              style={{ color: svc.gradientFrom }}
-            >
-              Book a demo
-              <span className="group-hover/btn:translate-x-1 transition-transform inline-block">→</span>
-            </motion.a>
-          )}
-        </AnimatePresence>
-
-        {/* Bottom shimmer bar */}
-        <div className="mt-6 h-px w-full bg-white/6 relative overflow-hidden">
-          <motion.div
-            className="absolute inset-y-0 left-0 rounded-full"
-            style={{ background: `linear-gradient(90deg, ${svc.gradientFrom}, ${svc.gradientTo})` }}
-            animate={{ width: (hovered || active) ? "100%" : "20%" }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          />
-          <motion.div
-            className="absolute inset-y-0 w-20"
-            style={{ background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)` }}
-            animate={{ x: ["-80px", "500px"] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "linear", repeatDelay: 0.5 }}
-          />
-        </div>
-      </div>
-    </motion.div>
-  );
-}
