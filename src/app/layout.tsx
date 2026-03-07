@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://nextframe3d.vercel.app";
+const siteUrl = "https://next-frame-3-d.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
