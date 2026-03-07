@@ -20,24 +20,24 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Always white background — logo has color so needs white BG to show
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
         scrolled
-          ? "bg-black/60 backdrop-blur-2xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-          : "bg-transparent"
+          ? "bg-white shadow-[0_2px_24px_rgba(0,0,0,0.10)] border-b border-gray-100"
+          : "bg-white/95 backdrop-blur-xl shadow-sm border-b border-gray-100"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo — bigger, no blend mode needed on white */}
         <a href="#" className="flex items-center">
           <Image
             src="/logo.png"
             alt="NextFrame"
-            width={160}
-            height={48}
-            className="h-9 w-auto object-contain"
-            style={{ mixBlendMode: 'screen' }}
+            width={220}
+            height={64}
+            className="h-11 w-auto object-contain"
             priority
           />
         </a>
@@ -48,14 +48,14 @@ export const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-gray-300 hover:text-white tracking-wide uppercase transition-colors duration-300"
+              className="text-sm text-gray-600 hover:text-black tracking-wide uppercase font-medium transition-colors duration-300"
             >
               {link.label}
             </a>
           ))}
           <a
             href="#contact"
-            className="px-5 py-2 rounded-full bg-white text-black text-sm font-medium tracking-wide hover:bg-gray-100 transition-colors duration-300"
+            className="px-5 py-2 rounded-full bg-black text-white text-sm font-medium tracking-wide hover:bg-gray-800 transition-colors duration-300"
           >
             Consultation
           </a>
@@ -67,9 +67,9 @@ export const Navbar = () => {
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          <span className={`block w-6 h-px bg-white transition-transform duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-          <span className={`block w-6 h-px bg-white transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-          <span className={`block w-6 h-px bg-white transition-transform duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          <span className={`block w-6 h-px bg-black transition-transform duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+          <span className={`block w-6 h-px bg-black transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+          <span className={`block w-6 h-px bg-black transition-transform duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
         </button>
       </div>
 
@@ -80,7 +80,7 @@ export const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black/90 backdrop-blur-2xl border-t border-white/10"
+            className="md:hidden bg-white border-t border-gray-100 shadow-lg"
           >
             <div className="px-6 py-6 flex flex-col gap-6">
               {navLinks.map((link) => (
@@ -88,7 +88,7 @@ export const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="text-white text-lg tracking-wide uppercase"
+                  className="text-gray-800 text-lg tracking-wide uppercase font-medium"
                 >
                   {link.label}
                 </a>
@@ -96,7 +96,7 @@ export const Navbar = () => {
               <a
                 href="#contact"
                 onClick={() => setMenuOpen(false)}
-                className="inline-block px-5 py-3 rounded-full bg-white text-black text-sm font-medium text-center"
+                className="inline-block px-5 py-3 rounded-full bg-black text-white text-sm font-medium text-center"
               >
                 Consultation
               </a>
