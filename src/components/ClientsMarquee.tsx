@@ -74,7 +74,7 @@ export const ClientsMarquee = () => {
             transition={{ delay: 0.35, duration: 0.7 }}
             className="flex justify-center gap-10 mt-10"
           >
-            {[["6+", "Active Clients"], ["100%", "Satisfaction"], ["₹500Cr+", "Projects Visualised"]].map(([val, label]) => (
+            {[["6+", "Active Clients"], ["100%", "Satisfaction"], ["48hr", "Avg. Delivery"]].map(([val, label]) => (
               <div key={label} className="text-center">
                 <p className="text-2xl md:text-3xl font-semibold text-white">{val}</p>
                 <p className="text-[10px] font-mono text-white/30 tracking-widest uppercase mt-1">{label}</p>
