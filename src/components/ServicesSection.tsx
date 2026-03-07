@@ -1,210 +1,255 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useAnimationControls } from "framer-motion";
 
 const services = [
   {
     id: "01",
     title: "3D Walkthrough",
     tagline: "Cinematic · Room-by-room",
-    description:
-      "Transform blueprints into photorealistic 3D walkthroughs. Buyers experience every room, material, and lighting scenario before ground is broken — compressing sales cycles by up to 60%.",
-    highlights: ["192-frame HD sequence", "Custom material library", "Day / night lighting", "Delivered in 48 hrs"],
+    description: "Transform blueprints into photorealistic 3D walkthroughs. Buyers experience every room, material, and lighting condition before a slab is poured.",
     color: "#3b82f6",
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <path d="M5 30L20 8l15 22H5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+        <circle cx="27" cy="14" r="4" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M5 30l7-7 5 5 4-6 13 8" stroke="currentColor" strokeWidth="1.2" opacity="0.4"/>
+      </svg>
+    ),
   },
   {
     id: "02",
     title: "VR Walkthrough",
     tagline: "Immersive · True scale",
-    description:
-      "Clients walk through the property using NextFrame Metaglass headsets — feel the true spatial proportions of a home that hasn't been built yet. The most convincing sales tool in real estate.",
-    highlights: ["1:1 spatial accuracy", "Metaglass headset ready", "On-site buyer sessions", "Zero app install"],
+    description: "Clients walk through the property using NextFrame Metaglass headsets — feel true spatial proportions of a home that hasn't been built yet.",
     color: "#ef4444",
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <rect x="3" y="12" width="34" height="18" rx="9" stroke="currentColor" strokeWidth="1.5"/>
+        <circle cx="13" cy="21" r="4.5" stroke="currentColor" strokeWidth="1.5"/>
+        <circle cx="27" cy="21" r="4.5" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M17.5 21h5" stroke="currentColor" strokeWidth="1.5"/>
+      </svg>
+    ),
   },
   {
     id: "03",
     title: "Pixel Streaming",
     tagline: "Cloud-rendered · Zero install",
-    description:
-      "Stream 4K 3D environments directly to any browser or smart TV. No downloads, no hardware. Buyers explore their future home from anywhere in the world with real-time material customisation.",
-    highlights: ["Browser-native", "4K cloud rendering", "Smart TV compatible", "Real-time colour swap"],
+    description: "Stream 4K 3D environments directly to any browser or smart TV. No downloads, no hardware dependency. Real-time material customisation.",
     color: "#a855f7",
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <rect x="5" y="6" width="21" height="16" rx="2.5" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M10 26h12M16 22v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="32" cy="12" r="6" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M30 12l1.5 1.5 3-3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+      </svg>
+    ),
   },
   {
     id: "04",
     title: "Plot Streaming",
     tagline: "Interactive · Site-level",
-    description:
-      "Select any plot on an interactive township map and instantly see a rendered view from that precise vantage point — complete with sunlight, shadows, neighbours, and landscape context.",
-    highlights: ["Interactive plot map", "Per-plot camera lock", "Sun & shadow sim", "Landscape integration"],
+    description: "Select any plot on an interactive township map and instantly see a rendered view from that precise vantage point with sunlight and landscape.",
     color: "#10b981",
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <path d="M6 34L20 6l14 28H6z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M13 34l7-14 7 14" stroke="currentColor" strokeWidth="1.2" opacity="0.4"/>
+        <circle cx="20" cy="18" r="2.5" fill="currentColor" opacity="0.6"/>
+      </svg>
+    ),
   },
 ];
 
+// Duplicate 3× for seamless loop
+const CARDS = [...services, ...services, ...services];
+const CARD_W = 340;
+const CARD_GAP = 24;
+const TOTAL = services.length * (CARD_W + CARD_GAP);
+
 export const ServicesSection = () => {
-  const [open, setOpen] = useState<string | null>("01");
+  const controls = useAnimationControls();
+  const [paused, setPaused] = useState(false);
+  const posRef = useRef(0);
+  const startedRef = useRef(false);
+
+  const startScroll = (from?: number) => {
+    const start = from ?? posRef.current;
+    const remaining = TOTAL - (start % TOTAL);
+    controls.start({
+      x: [start, start - remaining, start - remaining - TOTAL],
+      transition: {
+        duration: (remaining / TOTAL) * 30 + 30, // pro-rata speed
+        ease: "linear",
+        times: [0, remaining / (remaining + TOTAL), 1],
+        repeat: Infinity,
+        repeatType: "loop",
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (!startedRef.current) {
+      startedRef.current = true;
+      controls.start({
+        x: [0, -TOTAL],
+        transition: { duration: 30, ease: "linear", repeat: Infinity, repeatType: "loop" },
+      });
+    }
+  }, [controls]);
+
+  const handleHover = () => {
+    if (paused) return;
+    setPaused(true);
+    controls.stop();
+  };
+
+  const handleLeave = () => {
+    setPaused(false);
+    // Resume from wherever it stopped
+    controls.start({
+      x: [posRef.current, posRef.current - TOTAL],
+      transition: { duration: 30 * (1 - ((Math.abs(posRef.current) % TOTAL) / TOTAL)), ease: "linear", repeat: Infinity, repeatType: "loop" },
+    });
+  };
 
   return (
-    <section id="services" className="relative py-24 bg-black">
-      {/* Scan lines */}
+    <section id="services" className="relative py-24 bg-black overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-16"
-        >
-          <div>
-            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 mb-3">What we deliver</p>
-            <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">
-              Our <span className="font-semibold italic">Services</span>
-            </h2>
-          </div>
-          <a href="#contact" className="text-sm font-mono text-white/30 hover:text-white transition-colors tracking-wide">
-            Start a project ↗
-          </a>
-        </motion.div>
+      {/* Edge fades */}
+      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
 
-        {/* Accordion rows */}
-        <div className="flex flex-col">
-          {services.map((svc, i) => {
-            const isOpen = open === svc.id;
-            return (
-              <motion.div
-                key={svc.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="border-t border-white/8 last:border-b last:border-b-white/8"
-              >
-                {/* Row trigger */}
-                <button
-                  onClick={() => setOpen(isOpen ? null : svc.id)}
-                  className="w-full flex items-center gap-6 md:gap-10 py-6 md:py-8 group text-left"
-                >
-                  {/* Large number */}
-                  <span
-                    className="text-[40px] md:text-[56px] font-black leading-none transition-all duration-500 flex-shrink-0 tabular-nums"
-                    style={{
-                      WebkitTextStroke: isOpen ? "0px" : `1px ${svc.color}60`,
-                      color: isOpen ? svc.color : "transparent",
-                      textShadow: isOpen ? `0 0 40px ${svc.color}60` : "none",
-                    }}
-                  >
-                    {svc.id}
-                  </span>
-
-                  {/* Title + tagline */}
-                  <div className="flex-1 min-w-0">
-                    <h3
-                      className="text-2xl md:text-4xl font-semibold tracking-tight transition-colors duration-300"
-                      style={{ color: isOpen ? "white" : "rgba(255,255,255,0.5)" }}
-                    >
-                      {svc.title}
-                    </h3>
-                    <p
-                      className="text-xs font-mono tracking-widest uppercase mt-1 transition-opacity duration-300"
-                      style={{ color: svc.color, opacity: isOpen ? 1 : 0.4 }}
-                    >
-                      {svc.tagline}
-                    </p>
-                  </div>
-
-                  {/* Toggle icon */}
-                  <motion.div
-                    animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                    className="flex-shrink-0 w-9 h-9 rounded-full border border-white/12 flex items-center justify-center group-hover:border-white/25 transition-colors"
-                  >
-                    <span className="text-white/40 text-lg leading-none group-hover:text-white/60 transition-colors">+</span>
-                  </motion.div>
-                </button>
-
-                {/* Expandable content */}
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key="content"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pb-10 pl-0 md:pl-[calc(56px+40px)]">
-                        {/* Accent line */}
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: "60px" }}
-                          transition={{ duration: 0.5, delay: 0.1 }}
-                          className="h-px mb-7"
-                          style={{ backgroundColor: svc.color }}
-                        />
-
-                        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:gap-16 items-start">
-                          {/* Description */}
-                          <motion.p
-                            initial={{ opacity: 0, y: 12 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.12 }}
-                            className="text-gray-400 font-light leading-relaxed text-base max-w-xl"
-                          >
-                            {svc.description}
-                          </motion.p>
-
-                          {/* Feature grid */}
-                          <motion.div
-                            initial={{ opacity: 0, x: 12 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.18 }}
-                            className="grid grid-cols-2 gap-x-8 gap-y-2.5 flex-shrink-0"
-                          >
-                            {svc.highlights.map((h, j) => (
-                              <motion.div
-                                key={h}
-                                initial={{ opacity: 0, x: 8 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.22 + j * 0.05 }}
-                                className="flex items-center gap-2"
-                              >
-                                <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: svc.color }} />
-                                <span className="text-xs text-white/45 font-light whitespace-nowrap">{h}</span>
-                              </motion.div>
-                            ))}
-                          </motion.div>
-                        </div>
-
-                        {/* CTA */}
-                        <motion.a
-                          href="#contact"
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.35 }}
-                          className="inline-flex items-center gap-2 mt-8 px-5 py-2.5 rounded-full text-xs font-mono tracking-widest uppercase hover:opacity-80 transition-opacity"
-                          style={{
-                            background: `${svc.color}12`,
-                            border: `1px solid ${svc.color}28`,
-                            color: svc.color,
-                          }}
-                        >
-                          Book a demo →
-                        </motion.a>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            );
-          })}
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-7xl mx-auto px-6 md:px-10 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4"
+      >
+        <div>
+          <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 mb-3">What we deliver</p>
+          <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">
+            Our <span className="font-semibold italic">Services</span>
+          </h2>
+          <p className="mt-2 text-xs text-white/25 font-mono">Hover to pause · Release to play</p>
         </div>
+        <a href="#contact" className="text-sm font-mono text-white/30 hover:text-white transition-colors tracking-wide self-start md:self-auto">
+          Start a project ↗
+        </a>
+      </motion.div>
+
+      {/* Scrolling track */}
+      <div
+        className="overflow-hidden"
+        onMouseEnter={handleHover}
+        onMouseLeave={handleLeave}
+      >
+        <motion.div
+          animate={controls}
+          onUpdate={(latest) => { posRef.current = latest.x as number; }}
+          className="flex items-stretch"
+          style={{ gap: CARD_GAP, paddingLeft: CARD_GAP, width: "max-content" }}
+        >
+          {CARDS.map((svc, i) => (
+            <ServiceCard key={`${svc.id}-${i}`} svc={svc} />
+          ))}
+        </motion.div>
       </div>
     </section>
   );
 };
+
+function ServiceCard({ svc }: { svc: typeof services[0] }) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <motion.div
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      whileHover={{ y: -6, scale: 1.015 }}
+      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      className="flex-shrink-0 relative rounded-2xl overflow-hidden cursor-default"
+      style={{
+        width: CARD_W,
+        minHeight: 320,
+        boxShadow: hovered
+          ? `0 0 0 1px ${svc.color}40, 0 24px 60px ${svc.color}30, inset 0 1px 0 rgba(255,255,255,0.07)`
+          : `0 0 0 1px rgba(255,255,255,0.07), 0 8px 32px rgba(0,0,0,0.5)`,
+        transition: "box-shadow 0.45s ease",
+      }}
+    >
+      {/* Glassmorphism bg */}
+      <div
+        className="absolute inset-0 transition-all duration-500"
+        style={{
+          background: hovered
+            ? `linear-gradient(145deg, ${svc.color}10 0%, rgba(0,0,0,0.85) 100%)`
+            : "linear-gradient(145deg, rgba(255,255,255,0.025) 0%, rgba(0,0,0,0.85) 100%)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+        }}
+      />
+
+      {/* Ghost number */}
+      <div
+        className="absolute top-4 right-5 text-[88px] font-black leading-none pointer-events-none select-none transition-all duration-500"
+        style={{
+          WebkitTextStroke: `1.5px ${svc.color}`,
+          color: "transparent",
+          opacity: hovered ? 0.18 : 0.05,
+        }}
+      >
+        {svc.id}
+      </div>
+
+      {/* Content */}
+      <div className="relative p-8 flex flex-col h-full" style={{ minHeight: 320 }}>
+        {/* Icon */}
+        <div
+          className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-all duration-500"
+          style={{
+            background: hovered ? `${svc.color}18` : "rgba(255,255,255,0.05)",
+            border: `1px solid ${hovered ? `${svc.color}35` : "rgba(255,255,255,0.08)"}`,
+            color: hovered ? svc.color : "rgba(255,255,255,0.45)",
+            boxShadow: hovered ? `0 0 24px ${svc.color}30` : "none",
+          }}
+        >
+          {svc.icon}
+        </div>
+
+        <h3 className="text-xl font-semibold text-white tracking-tight mb-1">{svc.title}</h3>
+        <p
+          className="text-[10px] font-mono tracking-widest uppercase mb-4 transition-colors duration-300"
+          style={{ color: hovered ? svc.color : "rgba(255,255,255,0.25)" }}
+        >
+          {svc.tagline}
+        </p>
+        <p className="text-gray-500 font-light text-sm leading-relaxed flex-1">{svc.description}</p>
+
+        {/* Bottom bar */}
+        <div className="mt-6 h-px w-full bg-white/5 relative overflow-hidden">
+          <motion.div
+            className="absolute inset-y-0 left-0 rounded-full"
+            style={{ background: `linear-gradient(90deg, ${svc.color}, ${svc.color}80)` }}
+            animate={{ width: hovered ? "100%" : "22%" }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          />
+          {/* shimmer */}
+          <motion.div
+            className="absolute inset-y-0 w-16"
+            style={{ background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent)` }}
+            animate={{ x: ["-64px", "400px"] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: "linear", repeatDelay: 0.8 }}
+          />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
