@@ -41,7 +41,7 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-6 md:px-10 py-16 relative z-10">
           {/* Label */}
-          <p className="text-[10px] font-mono tracking-[0.4em] uppercase text-white/20 text-center mb-12">
+          <p className="text-[11px] font-mono tracking-[0.4em] uppercase text-white/50 text-center mb-12">
             Currently operating in
           </p>
 
