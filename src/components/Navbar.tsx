@@ -30,15 +30,15 @@ export const Navbar = () => {
           : "bg-white/95 backdrop-blur-xl shadow-sm border-b border-gray-100"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo — bigger, no blend mode needed on white */}
         <a href="#" className="flex items-center">
           <Image
             src="/logo-transparent.png"
             alt="NextFrame"
-            width={500}
-            height={80}
-            className="h-20 w-auto object-contain"
+            width={200}
+            height={48}
+            className="h-10 w-auto object-contain"
             priority
           />
         </a>
