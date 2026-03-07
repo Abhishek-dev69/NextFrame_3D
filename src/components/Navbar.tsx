@@ -33,10 +33,10 @@ export const Navbar = () => {
         {/* Logo — bigger, no blend mode needed on white */}
         <a href="#" className="flex items-center">
           <Image
-            src="/logo.png"
+            src="/logo-trimmed.png"
             alt="NextFrame"
-            width={420}
-            height={112}
+            width={500}
+            height={80}
             className="h-20 w-auto object-contain"
             priority
           />
