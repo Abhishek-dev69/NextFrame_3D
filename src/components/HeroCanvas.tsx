@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import { useScroll, useMotionValueEvent, motion, AnimatePresence, useTransform } from "framer-motion";
+import { useScroll, useMotionValueEvent, motion, AnimatePresence } from "framer-motion";
 import { useImagePreloader } from "@/hooks/useImagePreloader";
 
 const FRAME_COUNT = 82;
@@ -160,18 +160,14 @@ export const HeroCanvas = () => {
 
   const showHotspots = activeFrameIndex > 65;
 
-  // Scale down and move towards bottom-right at the very end of the scroll (95% to 100%)
-  const scale = useTransform(scrollYProgress, [0.95, 1], [1, 0.1]);
-  const x = useTransform(scrollYProgress, [0.95, 1], ["0%", "45%"]);
-  const y = useTransform(scrollYProgress, [0.95, 1], ["0%", "45%"]);
-  const opacity = useTransform(scrollYProgress, [0.98, 1], [1, 0]);
+  // Keep canvas full-screen throughout — no shrink/fade that causes blank
 
   return (
     // Height set to 1500vh for the most cinematic scroll duration possible
     <div ref={containerRef} className="relative h-[1500vh] bg-black">
       <motion.div 
-        style={{ scale, x, y, opacity, touchAction: 'pan-y' }}
-        className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center transform-origin-center rounded-3xl"
+        style={{ touchAction: 'pan-y' }}
+        className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
       >
         
         {!loaded && (
