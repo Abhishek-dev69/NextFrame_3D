@@ -168,61 +168,68 @@ export const HeroCanvas = () => {
         className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
       >
         
+        {/* Shimmer skeleton while loading */}
         {!loaded && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 gap-6">
-            {/* Percentage Counter */}
-            <span className="text-white font-mono text-xs tracking-[0.3em] uppercase opacity-60">
-              Loading NextFrame Experience
-            </span>
-            <div className="w-64 h-px bg-white/10 relative overflow-hidden">
-              {/* Fill bar */}
-              <div
-                className="absolute inset-y-0 left-0 bg-white transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              />
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 gap-6 bg-black">
+            {/* Logo shimmer placeholder */}
+            <div className="relative w-[55vw] max-w-[340px] h-12 rounded-lg overflow-hidden bg-white/5">
+              <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite]"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }} />
             </div>
-            <span className="text-white font-mono text-sm tabular-nums">
+            {/* Text lines shimmer */}
+            <div className="flex flex-col items-center gap-3 w-full max-w-xs">
+              <div className="relative w-[70%] h-3 rounded-full overflow-hidden bg-white/5">
+                <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_0.2s_infinite]"
+                  style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent)" }} />
+              </div>
+              <div className="relative w-[50%] h-2 rounded-full overflow-hidden bg-white/5">
+                <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_0.4s_infinite]"
+                  style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent)" }} />
+              </div>
+            </div>
+            {/* Progress bar */}
+            <div className="w-48 h-px bg-white/8 relative overflow-hidden mt-2">
+              <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-500 to-red-400 transition-all duration-300"
+                style={{ width: `${progress}%` }} />
+            </div>
+            <span className="text-white/30 font-mono text-[10px] tracking-[0.3em] uppercase tabular-nums">
               {progress}%
             </span>
           </div>
         )}
-        
+
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 pointer-events-none will-change-transform"
-          style={{ 
-            opacity: loaded ? 1 : 0,
-            transform: 'translateZ(0)', // Force GPU compositing layer
-          }}
+          style={{ opacity: loaded ? 1 : 0, transform: "translateZ(0)" }}
         />
-        
-        {/* Gradient Overlay for Text Readability - Simplified to uniform dark wash + bottom gradient  */}
+
+        {/* Gradient overlays */}
         <div className="absolute inset-0 bg-black/30 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none" />
 
-        {/* Overlay Text Content (Fades out via framer motion if needed, or stays static) */}
-        <motion.div 
+        {/* Hero text overlay */}
+        <motion.div
           className="relative z-20 flex flex-col items-center justify-center text-center px-4 w-full h-full pointer-events-none"
           animate={{ opacity: activeFrameIndex > 20 ? 0 : 1 }}
           transition={{ duration: 1 }}
         >
-          {/* Logo */}
           <Image
             src="/logo-transparent.png"
             alt="NextFrame"
             width={900}
             height={147}
-            className="h-16 md:h-20 w-auto max-w-[80vw] object-contain mb-4"
+            className="h-12 sm:h-16 md:h-20 w-auto max-w-[78vw] object-contain mb-3 md:mb-4"
             priority
           />
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-[0.15em] uppercase drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+          <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-[0.1em] md:tracking-[0.15em] uppercase drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] leading-tight">
             EXPERIENCE{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-white to-red-300">
               TOMORROW
             </span>
             {" "}TODAY.
           </h1>
-          <p className="mt-6 text-sm text-gray-300 font-light tracking-[0.3em] uppercase max-w-lg mx-auto">
+          <p className="mt-4 text-xs sm:text-sm text-gray-300 font-light tracking-[0.2em] sm:tracking-[0.3em] uppercase max-w-xs sm:max-w-lg mx-auto">
             Keep scrolling to assemble
           </p>
         </motion.div>
