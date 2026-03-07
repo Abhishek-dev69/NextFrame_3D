@@ -13,36 +13,34 @@ const CLIENT_LOGOS = [
   "/clients/client_06.webp",
 ];
 
-// Duplicate for seamless infinite loop
-const LOGOS = [...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS];
+// Duplicate 4× for seamless seamless infinite loop
+const LOGOS = [...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS];
 
 export const ClientsMarquee = () => {
   return (
-    <section className="relative bg-black py-16 z-10 overflow-hidden">
-      {/* Left / right fade masks */}
-      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+    <section className="relative bg-black py-20 z-10 overflow-hidden">
+      {/* Edge fade masks */}
+      <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
 
-      {/* Section label */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
+      {/* Subtle top label */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-        className="text-center mb-10"
+        transition={{ duration: 1 }}
+        className="text-center text-[10px] font-mono tracking-[0.35em] uppercase text-white/20 mb-12"
       >
-        <p className="text-[10px] font-mono tracking-[0.3em] uppercase text-gray-600">
-          Trusted by leading developers
-        </p>
-      </motion.div>
+        Trusted Partners
+      </motion.p>
 
-      {/* Marquee track */}
-      <div className="relative flex overflow-hidden">
+      {/* Marquee row */}
+      <div className="flex overflow-hidden">
         <motion.div
-          className="flex gap-16 items-center"
-          animate={{ x: ["0%", "-33.333%"] }}
+          className="flex items-center gap-20"
+          animate={{ x: ["0%", "-50%"] }}
           transition={{
-            duration: 22,
+            duration: 28,
             ease: "linear",
             repeat: Infinity,
           }}
@@ -51,14 +49,15 @@ export const ClientsMarquee = () => {
           {LOGOS.map((src, i) => (
             <div
               key={i}
-              className="flex-shrink-0 flex items-center justify-center w-36 h-20 opacity-60 hover:opacity-100 transition-opacity duration-500"
+              className="flex-shrink-0 flex items-center justify-center"
+              style={{ width: 200, height: 100 }}
             >
               <Image
                 src={src}
                 alt={`Client ${(i % CLIENT_LOGOS.length) + 1}`}
-                width={140}
-                height={80}
-                className="w-full h-full object-contain filter invert"
+                width={200}
+                height={100}
+                className="w-full h-full object-contain filter invert opacity-50 hover:opacity-90 transition-all duration-500 hover:scale-110"
               />
             </div>
           ))}
