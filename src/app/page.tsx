@@ -26,24 +26,73 @@ export default function Home() {
       {/* Hero — Scroll-linked 3D Room Assembly */}
       <HeroCanvas />
 
-      {/* Location strip */}
-      <div className="relative bg-black border-t border-b border-white/6 py-3 overflow-hidden">
-        <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
-        <div className="flex items-center gap-0" style={{ animation: 'none' }}>
-          <div className="flex items-center gap-8 px-8 whitespace-nowrap text-[11px] font-mono tracking-[0.25em] uppercase text-white/30">
-            <span className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-white/30 inline-block" />Currently operating in</span>
-            <span className="flex items-center gap-2 text-white/60"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse inline-block" />Nashik</span>
-            <span className="text-white/15">·</span>
-            <span className="flex items-center gap-2 text-white/60"><span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse inline-block" style={{ animationDelay: '0.4s' }} />Mumbai</span>
-            <span className="text-white/15">·</span>
-            <span className="flex items-center gap-2 text-white/60"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" style={{ animationDelay: '0.8s' }} />Vapi</span>
+      {/* Where We Operate — premium location section */}
+      <div className="relative bg-[#050505] border-t border-b border-white/6 overflow-hidden">
+        {/* Background large text */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+          <span className="text-[18vw] font-black text-white/[0.018] tracking-tighter uppercase whitespace-nowrap">
+            INDIA
+          </span>
+        </div>
+
+        {/* Scan line decor */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/6 to-transparent" />
+
+        <div className="max-w-7xl mx-auto px-6 md:px-10 py-16 relative z-10">
+          {/* Label */}
+          <p className="text-[10px] font-mono tracking-[0.4em] uppercase text-white/20 text-center mb-12">
+            Currently operating in
+          </p>
+
+          {/* City row */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/6">
+            {[
+              { city: "Nashik", state: "Maharashtra", coord: "20.0059° N, 73.7897° E", color: "#3b82f6" },
+              { city: "Mumbai", state: "Maharashtra", coord: "19.0760° N, 72.8777° E", color: "#ef4444" },
+              { city: "Vapi", state: "Gujarat", coord: "20.3713° N, 72.9060° E", color: "#10b981" },
+            ].map((loc, i) => (
+              <div
+                key={loc.city}
+                className="group relative bg-[#050505] px-10 py-10 flex flex-col gap-4 hover:bg-white/[0.02] transition-colors duration-500"
+              >
+                {/* Live dot */}
+                <div className="flex items-center gap-2">
+                  <span
+                    className="w-2 h-2 rounded-full animate-pulse flex-shrink-0"
+                    style={{ backgroundColor: loc.color, animationDelay: `${i * 0.35}s` }}
+                  />
+                  <span className="text-[9px] font-mono tracking-[0.3em] uppercase text-white/25">
+                    {loc.state}
+                  </span>
+                </div>
+
+                {/* City name */}
+                <h3 className="text-5xl md:text-6xl font-black text-white tracking-tight leading-none transition-all duration-500 group-hover:text-opacity-100"
+                  style={{ color: "rgba(255,255,255,0.85)" }}
+                >
+                  {loc.city}
+                </h3>
+
+                {/* Coordinates */}
+                <p className="text-[10px] font-mono text-white/20 tracking-widest">
+                  {loc.coord}
+                </p>
+
+                {/* Bottom accent */}
+                <div
+                  className="h-px w-0 group-hover:w-full transition-all duration-700 ease-out mt-2"
+                  style={{ backgroundColor: loc.color }}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* About Us */}
       <AboutSection />
+
 
       {/* 1. The Metaframe Services Grid */}
       <div className="h-20 bg-gradient-to-b from-[#050505] to-black border-t border-white/5" />
