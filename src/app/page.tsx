@@ -26,6 +26,22 @@ export default function Home() {
       {/* Hero — Scroll-linked 3D Room Assembly */}
       <HeroCanvas />
 
+      {/* Location strip */}
+      <div className="relative bg-black border-t border-b border-white/6 py-3 overflow-hidden">
+        <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+        <div className="flex items-center gap-0" style={{ animation: 'none' }}>
+          <div className="flex items-center gap-8 px-8 whitespace-nowrap text-[11px] font-mono tracking-[0.25em] uppercase text-white/30">
+            <span className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-white/30 inline-block" />Currently operating in</span>
+            <span className="flex items-center gap-2 text-white/60"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse inline-block" />Nashik</span>
+            <span className="text-white/15">·</span>
+            <span className="flex items-center gap-2 text-white/60"><span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse inline-block" style={{ animationDelay: '0.4s' }} />Mumbai</span>
+            <span className="text-white/15">·</span>
+            <span className="flex items-center gap-2 text-white/60"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" style={{ animationDelay: '0.8s' }} />Vapi</span>
+          </div>
+        </div>
+      </div>
+
       {/* About Us */}
       <AboutSection />
 
@@ -57,8 +73,16 @@ export default function Home() {
       <div id="contact" />
       <BookingSection />
 
-      <footer className="py-12 text-center text-sm text-gray-600 bg-black border-t border-white/5 relative z-50">
-        <p>&copy; {new Date().getFullYear()} NextFrame. All rights reserved. Built by Abhishek Singh.</p>
+      <footer className="py-10 bg-black border-t border-white/5 relative z-50">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-gray-600">&copy; {new Date().getFullYear()} NextFrame. All rights reserved.</p>
+          <div className="flex items-center gap-6 text-[10px] font-mono tracking-[0.2em] uppercase">
+            <span className="flex items-center gap-1.5 text-white/25"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 opacity-70" />Nashik</span>
+            <span className="flex items-center gap-1.5 text-white/25"><span className="w-1.5 h-1.5 rounded-full bg-red-400 opacity-70" />Mumbai</span>
+            <span className="flex items-center gap-1.5 text-white/25"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 opacity-70" />Vapi</span>
+          </div>
+          <p className="text-xs text-gray-700">Built by Abhishek Singh</p>
+        </div>
       </footer>
 
       {/* Persistent floating guide */}
