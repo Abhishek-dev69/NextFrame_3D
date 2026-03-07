@@ -131,7 +131,7 @@ export const ServicesSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-7xl mx-auto px-6 md:px-10 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4"
+        className="flex flex-col items-center text-center justify-center gap-4 mb-12"
       >
         <div>
           <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 mb-3">What we deliver</p>
@@ -140,7 +140,7 @@ export const ServicesSection = () => {
           </h2>
           <p className="mt-2 text-xs text-white/25 font-mono">Hover to pause · Release to play</p>
         </div>
-        <a href="#contact" className="text-sm font-mono text-white/30 hover:text-white transition-colors tracking-wide self-start md:self-auto">
+        <a href="#contact" className="text-sm font-mono text-white/30 hover:text-white transition-colors tracking-wide">
           Start a project ↗
         </a>
       </motion.div>
