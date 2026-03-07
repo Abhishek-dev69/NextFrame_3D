@@ -35,9 +35,9 @@ export const Navbar = () => {
           <Image
             src="/logo.png"
             alt="NextFrame"
-            width={280}
-            height={80}
-            className="h-14 w-auto object-contain"
+            width={340}
+            height={96}
+            className="h-16 w-auto object-contain"
             priority
           />
         </a>
