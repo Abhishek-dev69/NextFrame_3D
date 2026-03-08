@@ -10,6 +10,7 @@ import { MissionSection } from "@/components/MissionSection";
 import { VRGlimpseSection } from "@/components/VRGlimpseSection";
 import { IndustrySolutions } from "@/components/IndustrySolutions";
 import { BookingSection } from "@/components/BookingSection";
+import { ContactForm } from "@/components/ContactForm";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
@@ -142,6 +143,10 @@ export default function Home() {
       {/* 6. Booking & Consultation */}
       <div id="contact" />
       <BookingSection />
+
+      {/* 7. Contact Us Full Form */}
+      <div className="h-20 bg-gradient-to-b from-[#050505] to-black border-t border-white/5" />
+      <ContactForm />
 
       <footer className="py-10 bg-black border-t border-white/5 relative z-50">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
