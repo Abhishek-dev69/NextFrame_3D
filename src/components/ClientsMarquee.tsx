@@ -111,28 +111,19 @@ export const ClientsMarquee = () => {
 function LogoCard({ src, index, total }: { src: string; index: number; total: number }) {
   return (
     <motion.div
-      whileHover={{ scale: 1.05, zIndex: 10 }}
-      className="flex-shrink-0 relative mx-6 my-4 group"
-      style={{ width: 250, height: 120 }}
+      whileHover={{ scale: 1.08, zIndex: 10 }}
+      className="flex-shrink-0 relative mx-6 my-4"
+      style={{ width: 240, height: 120 }}
     >
-      {/* Premium Silver / Titanium Pill */}
-      <div 
-        className="w-full h-full rounded-[2.5rem] flex items-center justify-center p-6 relative overflow-hidden transition-all duration-500 shadow-[inset_0_2px_4px_rgba(255,255,255,0.9),_0_10px_25px_rgba(0,0,0,0.6)]"
-        style={{
-          background: "linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%)",
-        }}
-      >
-        {/* Top reflection for 3D metallic feel */}
-        <div className="absolute top-0 inset-x-0 h-[45%] bg-gradient-to-b from-white/50 to-transparent pointer-events-none rounded-t-[2.5rem]" />
-        
+      <div className="w-full h-full flex items-center justify-center relative group">
         <Image
           src={src}
           alt={`Client ${(index % total) + 1}`}
-          width={200}
-          height={80}
-          // multiply removes white backgrounds from JPEGs seamlessly
-          // grayscale + opacity creates a consistent etched-metal look
-          className="w-full h-[75%] object-contain mix-blend-multiply filter grayscale contrast-[1.1] opacity-60 group-hover:opacity-100 group-hover:contrast-[1.3] transition-all duration-500"
+          width={240}
+          height={120}
+          // 'mix-blend-screen' makes the image's black background completely disappear into the site's dark background.
+          // grayscale + contrast + brightness + opacity creates a premium metallic 'silver' aesthetic.
+          className="w-full h-full object-contain mix-blend-screen grayscale contrast-[1.2] brightness-[1.3] opacity-50 group-hover:opacity-100 group-hover:brightness-[1.7] group-hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-500"
         />
       </div>
     </motion.div>
