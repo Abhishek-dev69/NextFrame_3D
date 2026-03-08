@@ -130,6 +130,7 @@ function ServiceCard({ svc, index, isHovered }: any) {
         y: isHovered ? 0 : index * -15,   // Shift upwards slightly for a physical deck look
         x: isHovered ? 0 : index * 8,     // Shift right slightly
         zIndex: 10 - index,
+        height: isHovered ? 560 : 380,    // Image comes down
       }}
       transition={{ 
         type: "spring", 
@@ -138,7 +139,7 @@ function ServiceCard({ svc, index, isHovered }: any) {
         delay: isHovered ? index * 0.05 : 0 
       }}
       className={`
-        relative w-[300px] h-[380px] flex-shrink-0 cursor-pointer rounded-2xl overflow-hidden
+        relative w-[300px] flex-shrink-0 cursor-pointer rounded-2xl overflow-hidden flex flex-col
         ${!isHovered && index > 0 ? "mt-[-380px] lg:mt-0 lg:ml-[-300px]" : "mt-6 lg:mt-0 lg:ml-6"}
       `}
       style={{
@@ -151,21 +152,6 @@ function ServiceCard({ svc, index, isHovered }: any) {
           : `0 4px 24px rgba(0,0,0,0.7), 0 1px 0 rgba(255,255,255,0.06) inset`,
       }}
     >
-      {/* Background Image (only visible on the expanded card) */}
-      <motion.div
-        className="absolute inset-0 z-0 pointer-events-none"
-        animate={{ opacity: isHovered ? 0.35 : 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <img 
-          src={svc.image} 
-          alt={svc.title}
-          className="w-full h-full object-cover mix-blend-luminosity"
-        />
-        {/* Heavy gradient mask so the image doesn't drown out text */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
-      </motion.div>
-
       {/* Top colour bleed */}
       <div
         className="absolute top-0 left-0 right-0 h-32 pointer-events-none transition-opacity duration-500 z-0"
@@ -188,7 +174,7 @@ function ServiceCard({ svc, index, isHovered }: any) {
       </div>
 
       {/* Content */}
-      <div className="relative p-7 flex flex-col h-full z-10">
+      <div className="relative p-7 flex flex-col shrink-0 h-[380px] z-10">
         {/* Icon */}
         <div
           className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-500 bg-[#111] border border-white/5"
@@ -212,6 +198,23 @@ function ServiceCard({ svc, index, isHovered }: any) {
           {svc.description}
         </p>
       </div>
+
+      {/* Image Block that comes down */}
+      <motion.div
+        initial={false}
+        animate={{ 
+          height: isHovered ? 180 : 0, 
+          opacity: isHovered ? 1 : 0 
+        }}
+        className="w-full shrink-0 relative overflow-hidden bg-[#0A0A0A]"
+      >
+        <img 
+          src={svc.image} 
+          alt={svc.title}
+          className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105 object-center mix-blend-lighten"
+        />
+        <div className="absolute inset-0 shadow-[inset_0_30px_30px_rgba(10,10,10,1)] pointer-events-none" />
+      </motion.div>
 
       {/* Hover glow overlay */}
       <motion.div
