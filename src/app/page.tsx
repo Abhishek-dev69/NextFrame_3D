@@ -10,7 +10,6 @@ import { MissionSection } from "@/components/MissionSection";
 import { VRGlimpseSection } from "@/components/VRGlimpseSection";
 import { IndustrySolutions } from "@/components/IndustrySolutions";
 import { BookingSection } from "@/components/BookingSection";
-import { FloatingMetaglassIcon } from "@/components/FloatingMetaglassIcon";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
@@ -159,9 +158,6 @@ export default function Home() {
 
       {/* Book Demo floating CTA */}
       <BookDemoCTA />
-
-      {/* Persistent floating guide */}
-      <FloatingMetaglassIcon />
     </main>
   );
 }
