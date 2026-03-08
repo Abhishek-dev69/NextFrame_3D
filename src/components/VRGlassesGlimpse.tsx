@@ -174,8 +174,8 @@ export const VRGlassesGlimpse = () => {
         </motion.div>
       </div>
 
-      {/* ── 500vh scroll zone ───────────────────────────────────────────── */}
-      <div ref={containerRef} className="relative h-[900vh]" style={{ touchAction: "pan-y" }}>
+      {/* ── 450vh scroll zone ───────────────────────────────────────────── */}
+      <div ref={containerRef} className="relative h-[450vh]" style={{ touchAction: "pan-y" }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
 
           {/* Loading bar */}
