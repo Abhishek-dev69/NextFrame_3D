@@ -8,7 +8,8 @@ const services = [
     id: "01",
     title: "3D Walkthrough",
     tagline: "Cinematic · Room-by-room",
-    description: "Transform blueprints into photorealistic 3D walkthroughs. Buyers experience every room, material, and lighting condition before a slab is poured.",
+    description: "A realistic video presentation of a property that shows how the space will look before it is built. It allows buyers to see the layout, interiors, lighting, and overall design in a cinematic way. Instead of imagining the project from drawings or floor plans, clients can visually experience the property and understand the spaces much more clearly.",
+    image: "/services/walkthrough.jpeg",
     color: "#3b82f6",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
@@ -22,7 +23,8 @@ const services = [
     id: "02",
     title: "VR Walkthrough",
     tagline: "Immersive · True scale",
-    description: "Clients walk through the property using NextFrame Metaglass headsets — feel true spatial proportions of a home that hasn't been built yet.",
+    description: "A VR walkthrough lets clients explore a property using a virtual reality headset. They can look around in every direction and feel like they are actually standing inside the apartment, villa, or building. This immersive experience helps buyers understand the size, design, and layout of the property much better than traditional presentations.",
+    image: "/services/vrwalkthrough.jpeg",
     color: "#ef4444",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
@@ -37,7 +39,8 @@ const services = [
     id: "03",
     title: "Pixel Streaming",
     tagline: "Cloud-rendered · Zero install",
-    description: "Stream 4K 3D environments directly to any browser or smart TV. No downloads, no hardware dependency. Real-time material customisation.",
+    description: "Pixel Streaming allows users to experience a high-quality 3D property directly on their phone, tablet, laptop, or TV without installing any software. The 3D environment runs on a powerful server and streams to the device in real time. This makes it easy for clients to interact with the project from anywhere while enjoying smooth visuals.",
+    image: "/services/pixelstreaming.jpeg",
     color: "#a855f7",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
@@ -52,7 +55,8 @@ const services = [
     id: "04",
     title: "Plot Streaming",
     tagline: "Interactive · Site-level",
-    description: "Select any plot on an interactive township map and instantly see a rendered view from that precise vantage point with sunlight and landscape.",
+    description: "Plot Streaming is a digital way to present land layouts and plotted developments. Sales teams can show the entire master plan, roads, and individual plots on a tablet or screen, making it easier for clients to understand the project. It helps buyers clearly visualize the layout and choose plots with more confidence.",
+    image: "/services/plotstreaming.jpeg",
     color: "#10b981",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
@@ -147,18 +151,33 @@ function ServiceCard({ svc, index, isHovered }: any) {
           : `0 4px 24px rgba(0,0,0,0.7), 0 1px 0 rgba(255,255,255,0.06) inset`,
       }}
     >
+      {/* Background Image (only visible on the expanded card) */}
+      <motion.div
+        className="absolute inset-0 z-0 pointer-events-none"
+        animate={{ opacity: isHovered ? 0.35 : 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <img 
+          src={svc.image} 
+          alt={svc.title}
+          className="w-full h-full object-cover mix-blend-luminosity"
+        />
+        {/* Heavy gradient mask so the image doesn't drown out text */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
+      </motion.div>
+
       {/* Top colour bleed */}
       <div
-        className="absolute top-0 left-0 right-0 h-32 pointer-events-none transition-opacity duration-500"
+        className="absolute top-0 left-0 right-0 h-32 pointer-events-none transition-opacity duration-500 z-0"
         style={{
-          background: `linear-gradient(180deg, ${svc.color}15 0%, transparent 100%)`,
+          background: `linear-gradient(180deg, ${svc.color}25 0%, transparent 100%)`,
           opacity: isHovered ? 1 : 0.3,
         }}
       />
 
       {/* Ghost number */}
       <div
-        className="absolute top-4 right-6 text-[80px] font-black leading-none pointer-events-none select-none transition-all duration-500"
+        className="absolute top-4 right-6 text-[80px] font-black leading-none pointer-events-none select-none transition-all duration-500 z-0"
         style={{
           WebkitTextStroke: `1px ${svc.color}`,
           color: "transparent",
@@ -169,7 +188,7 @@ function ServiceCard({ svc, index, isHovered }: any) {
       </div>
 
       {/* Content */}
-      <div className="relative p-7 flex flex-col h-full">
+      <div className="relative p-7 flex flex-col h-full z-10">
         {/* Icon */}
         <div
           className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-500 bg-[#111] border border-white/5"
