@@ -84,7 +84,7 @@ export const ContactForm = () => {
               </span>
             </div>
             
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.2] pb-2 pr-4">
               Ready to <br/>
               <span className="font-semibold italic bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                 Start?
