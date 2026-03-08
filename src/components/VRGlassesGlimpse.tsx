@@ -49,14 +49,6 @@ function useGlassesPreloader(count: number) {
   return { images, loaded, progress };
 }
 
-// ─── Spec chips shown as glassmorphism cards ─────────────────────────────────
-const specs = [
-  { label: "Display", value: "4K Micro-OLED", icon: "◈" },
-  { label: "FOV", value: "120° Ultra-Wide", icon: "⊙" },
-  { label: "Latency", value: "< 2ms Spatial", icon: "◎" },
-  { label: "Platform", value: "NextFrame OS", icon: "⬡" },
-];
-
 // ─── Component ───────────────────────────────────────────────────────────────
 export const VRGlassesGlimpse = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -224,52 +216,6 @@ export const VRGlassesGlimpse = () => {
                   {Math.round((frameIndex / (FRAME_COUNT - 1)) * 100)}%
                 </span>
               </motion.div>
-
-              {/* Left side — Product name plate */}
-              <div className="absolute left-3 md:left-10 top-1/2 -translate-y-1/2 z-20">
-                <div
-                  className="p-2.5 md:p-4 rounded-xl md:rounded-2xl"
-                  style={{
-                    background: "rgba(0,0,0,0.4)",
-                    backdropFilter: "blur(12px)",
-                    WebkitBackdropFilter: "blur(12px)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                  }}
-                >
-                  <p className="text-[7px] md:text-[9px] font-mono text-white/30 tracking-[0.2em] uppercase mb-0.5 md:mb-1">Model</p>
-                  <p className="text-white text-xs md:text-sm font-medium tracking-wide">Metaglass 2.0</p>
-                  <p className="text-white/40 text-[8px] md:text-[10px] font-mono mt-0.5 md:mt-1">by NextFrame</p>
-                </div>
-              </div>
-
-              {/* Right side — Spec cards */}
-              <AnimatePresence>
-                {sectionVisible && (
-                <div className="absolute right-3 md:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-1.5 md:gap-2">
-                    {specs.map((spec, i) => (
-                      <motion.div
-                        key={spec.label}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 + i * 0.12, duration: 0.5 }}
-                        style={{
-                          background: "rgba(0,0,0,0.45)",
-                          backdropFilter: "blur(16px)",
-                          WebkitBackdropFilter: "blur(16px)",
-                          border: "1px solid rgba(255,255,255,0.08)",
-                        }}
-                        className="px-2 py-1.5 md:px-4 md:py-2.5 rounded-lg md:rounded-xl flex items-center gap-2 md:gap-3 min-w-[110px] md:min-w-[160px]"
-                      >
-                        <span className="text-white/30 text-xs md:text-base">{spec.icon}</span>
-                        <div>
-                          <p className="text-[7px] md:text-[8px] font-mono text-white/30 tracking-widest uppercase">{spec.label}</p>
-                          <p className="text-white/80 text-[10px] md:text-xs font-medium">{spec.value}</p>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                )}
-              </AnimatePresence>
 
               {/* Bottom — tagline */}
               <motion.div
