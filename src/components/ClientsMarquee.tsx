@@ -121,9 +121,10 @@ function LogoCard({ src, index, total }: { src: string; index: number; total: nu
           alt={`Client ${(index % total) + 1}`}
           width={240}
           height={120}
-          // 'mix-blend-screen' makes the image's black background completely disappear into the site's dark background.
-          // grayscale + contrast + brightness + opacity creates a premium metallic 'silver' aesthetic.
-          className="w-full h-full object-contain mix-blend-screen grayscale contrast-[1.2] brightness-[1.3] opacity-50 group-hover:opacity-100 group-hover:brightness-[1.7] group-hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-500"
+          // The combination of brightness(0) + invert(1) forces the entire logo (including black text) to pure white.
+          // Then opacity pulls it back to a subtle, uniform silver/gray, dodging the original colors completely.
+          // mix-blend-screen handles any residual black background box from the source image.
+          className="w-full h-full object-contain mix-blend-screen brightness-0 invert opacity-40 group-hover:opacity-100 group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)] transition-all duration-500"
         />
       </div>
     </motion.div>
