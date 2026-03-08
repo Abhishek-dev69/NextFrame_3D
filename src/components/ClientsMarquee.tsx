@@ -112,18 +112,26 @@ function LogoCard({ src, index, total }: { src: string; index: number; total: nu
   return (
     <motion.div
       whileHover={{ scale: 1.08, zIndex: 10 }}
-      className="flex-shrink-0 relative mx-6 my-4"
-      style={{ width: 240, height: 120 }}
+      className="flex-shrink-0 relative mx-5 my-3"
+      style={{ width: 300, height: 150 }}
     >
-      <div className="w-full h-full flex items-center justify-center relative group">
+      {/* Card glassmorphism container */}
+      <div
+        className="w-full h-full rounded-2xl flex items-center justify-center relative overflow-hidden border border-white/6 transition-all duration-500 hover:border-white/20 group"
+        style={{ background: "rgba(255,255,255,0.025)", backdropFilter: "blur(8px)" }}
+      >
+        {/* Hover shimmer */}
+        <motion.div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500"
+          style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%)" }}
+        />
         <Image
           src={src}
           alt={`Client ${(index % total) + 1}`}
-          width={240}
-          height={120}
-          // 'mix-blend-screen' makes the image's black background completely disappear into the site's dark background.
-          // grayscale + contrast + brightness + opacity creates a premium metallic 'silver' aesthetic.
-          className="w-full h-full object-contain mix-blend-screen grayscale contrast-[1.2] brightness-[1.3] opacity-50 group-hover:opacity-100 group-hover:brightness-[1.7] group-hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-500"
+          width={260}
+          height={110}
+          // Simple transparency, no grayscale or invert filters
+          className="w-[88%] h-[82%] object-contain opacity-60 group-hover:opacity-100 transition-all duration-500"
         />
       </div>
     </motion.div>
