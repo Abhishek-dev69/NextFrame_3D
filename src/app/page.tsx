@@ -67,11 +67,12 @@ export default function Home() {
           </p>
 
           {/* City row */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/6">
             {[
               { city: "Nashik", state: "Maharashtra", coord: "20.0059° N, 73.7897° E", color: "#3b82f6" },
               { city: "Mumbai", state: "Maharashtra", coord: "19.0760° N, 72.8777° E", color: "#ef4444" },
               { city: "Vapi", state: "Gujarat", coord: "20.3713° N, 72.9060° E", color: "#10b981" },
+              { city: "Ahmedabad", state: "Gujarat", coord: "23.0225° N, 72.5714° E", color: "#f59e0b" },
             ].map((loc, i) => (
               <div
                 key={loc.city}
@@ -150,6 +151,7 @@ export default function Home() {
             <span className="flex items-center gap-1.5 text-white/25"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 opacity-70" />Nashik</span>
             <span className="flex items-center gap-1.5 text-white/25"><span className="w-1.5 h-1.5 rounded-full bg-red-400 opacity-70" />Mumbai</span>
             <span className="flex items-center gap-1.5 text-white/25"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 opacity-70" />Vapi</span>
+            <span className="flex items-center gap-1.5 text-white/25"><span className="w-1.5 h-1.5 rounded-full bg-amber-400 opacity-70" />Ahmedabad</span>
           </div>
           <p className="text-xs text-gray-700">Built by Abhishek Singh</p>
         </div>

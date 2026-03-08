@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "NextFrame | Immersive VR & 3D Visualization Studio India",
   description:
-    "NextFrame creates interactive VR walkthroughs and real-time 3D visualizations for real estate developers and architects across Nashik, Mumbai, and Vapi. Explore your future space before it is built.",
+    "NextFrame creates interactive VR walkthroughs and real-time 3D visualizations for real estate developers and architects across Nashik, Mumbai, Vapi, and Ahmedabad. Explore your future space before it is built.",
   keywords: [
     "VR walkthrough",
     "3D visualization",
@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     "Nashik",
     "Mumbai",
     "Vapi",
+    "Ahmedabad",
   ],
   authors: [{ name: "NextFrame Studio" }],
   creator: "NextFrame Studio",
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     title: "NextFrame | Immersive VR & 3D Visualization Studio India",
     description:
-      "Interactive VR walkthroughs and real-time 3D visualizations — explore your future space before it is built. Serving Nashik, Mumbai & Vapi.",
+      "Interactive VR walkthroughs and real-time 3D visualizations — explore your future space before it is built. Serving Nashik, Mumbai, Vapi & Ahmedabad.",
     siteName: "NextFrame",
     images: [
       {
