@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion, useAnimationControls } from "framer-motion";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const services = [
   {
@@ -64,193 +64,144 @@ const services = [
   },
 ];
 
-// Duplicate 3× for seamless loop
-const CARDS = [...services, ...services, ...services];
-const CARD_W = 340;
-const CARD_GAP = 24;
-const TOTAL = services.length * (CARD_W + CARD_GAP);
-
 export const ServicesSection = () => {
-  const controls = useAnimationControls();
-  const [paused, setPaused] = useState(false);
-  const posRef = useRef(0);
-  const startedRef = useRef(false);
-
-  const startScroll = (from?: number) => {
-    const start = from ?? posRef.current;
-    const remaining = TOTAL - (start % TOTAL);
-    controls.start({
-      x: [start, start - remaining, start - remaining - TOTAL],
-      transition: {
-        duration: (remaining / TOTAL) * 30 + 30, // pro-rata speed
-        ease: "linear",
-        times: [0, remaining / (remaining + TOTAL), 1],
-        repeat: Infinity,
-        repeatType: "loop",
-      },
-    });
-  };
-
-  useEffect(() => {
-    if (!startedRef.current) {
-      startedRef.current = true;
-      controls.start({
-        x: [0, -TOTAL],
-        transition: { duration: 30, ease: "linear", repeat: Infinity, repeatType: "loop" },
-      });
-    }
-  }, [controls]);
-
-  const handleHover = () => {
-    if (paused) return;
-    setPaused(true);
-    controls.stop();
-  };
-
-  const handleLeave = () => {
-    setPaused(false);
-    // Resume from wherever it stopped
-    controls.start({
-      x: [posRef.current, posRef.current - TOTAL],
-      transition: { duration: 30 * (1 - ((Math.abs(posRef.current) % TOTAL) / TOTAL)), ease: "linear", repeat: Infinity, repeatType: "loop" },
-    });
-  };
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section id="services" className="relative py-24 bg-black overflow-hidden">
+    <section 
+      id="services" 
+      className="relative py-32 bg-black overflow-hidden flex flex-col items-center"
+    >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
 
-      {/* Edge fades */}
-      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+      {/* Atmospheric backgrounds */}
+      <div className="absolute top-1/2 left-1/4 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col items-center text-center justify-center gap-4 mb-12"
+        layout
+        className="flex flex-col items-center text-center justify-center gap-4 mb-16 z-20 pointer-events-none px-6"
       >
-        <div>
-          <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 mb-3">What we deliver</p>
-          <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">
-            Our <span className="font-semibold italic">Services</span>
-          </h2>
-          <p className="mt-2 text-xs text-white/25 font-mono">Hover to pause · Release to play</p>
-        </div>
-        <a href="#contact" className="text-sm font-mono text-white/30 hover:text-white transition-colors tracking-wide">
-          Start a project ↗
-        </a>
+        <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 mb-1">What we deliver</p>
+        <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight leading-[1.1]">
+          Our <span className="font-semibold italic bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">Services</span>
+        </h2>
+        <p className="mt-2 text-xs text-white/40 font-mono tracking-widest uppercase">
+          <span className="hidden lg:inline">Hover to expand deck</span>
+          <span className="lg:hidden">Tap to expand deck</span>
+        </p>
       </motion.div>
 
-      {/* Scrolling track */}
-      <div
-        className="overflow-hidden"
-        onMouseEnter={handleHover}
-        onMouseLeave={handleLeave}
+      {/* Deck Container */}
+      <motion.div 
+        layout
+        className="flex flex-col lg:flex-row items-center justify-center relative z-10 w-full px-6 py-10"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={() => setIsHovered(!isHovered)}
       >
-        <motion.div
-          animate={controls}
-          onUpdate={(latest) => { posRef.current = latest.x as number; }}
-          className="flex items-stretch"
-          style={{ gap: CARD_GAP, paddingLeft: CARD_GAP, width: "max-content" }}
-        >
-          {CARDS.map((svc, i) => (
-            <ServiceCard key={`${svc.id}-${i}`} svc={svc} />
-          ))}
-        </motion.div>
-      </div>
+        {services.map((svc, i) => (
+          <ServiceCard 
+            key={svc.id} 
+            svc={svc} 
+            index={i} 
+            isHovered={isHovered} 
+          />
+        ))}
+      </motion.div>
     </section>
   );
 };
 
-function ServiceCard({ svc }: { svc: typeof services[0] }) {
-  const [hovered, setHovered] = useState(false);
-
+function ServiceCard({ svc, index, isHovered }: any) {
   return (
     <motion.div
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      whileHover={{ y: -8, scale: 1.018 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className="flex-shrink-0 relative rounded-2xl overflow-hidden cursor-default"
+      layout
+      initial={false}
+      animate={{
+        scale: isHovered ? 1 : 1 - (index * 0.04),
+        rotate: isHovered ? (index % 2 === 0 ? -1 : 1) : index * 3,
+        y: isHovered ? 0 : index * -15,   // Shift upwards slightly for a physical deck look
+        x: isHovered ? 0 : index * 8,     // Shift right slightly
+        zIndex: 10 - index,
+      }}
+      transition={{ 
+        type: "spring", 
+        stiffness: 260, 
+        damping: 25, 
+        delay: isHovered ? index * 0.05 : 0 
+      }}
+      className={`
+        relative w-[300px] h-[380px] flex-shrink-0 cursor-pointer rounded-2xl overflow-hidden
+        ${!isHovered && index > 0 ? "mt-[-380px] lg:mt-0 lg:ml-[-300px]" : "mt-6 lg:mt-0 lg:ml-6"}
+      `}
       style={{
-        width: CARD_W,
-        minHeight: 340,
-        background: hovered
-          ? `linear-gradient(145deg, ${svc.color}14 0%, #111 100%)`
-          : "#111111",
-        border: `1px solid ${hovered ? `${svc.color}45` : "rgba(255,255,255,0.10)"}`,
-        boxShadow: hovered
-          ? `0 0 0 1px ${svc.color}30, 0 28px 70px ${svc.color}25, 0 8px 32px rgba(0,0,0,0.6)`
-          : `0 4px 24px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.04) inset`,
-        transition: "background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease",
+        background: isHovered
+          ? `linear-gradient(145deg, ${svc.color}14 0%, #0a0a0a 100%)`
+          : "#0a0a0a",
+        border: `1px solid ${isHovered ? `${svc.color}35` : "rgba(255,255,255,0.08)"}`,
+        boxShadow: isHovered
+          ? `0 0 0 1px ${svc.color}20, 0 20px 40px ${svc.color}15, 0 8px 32px rgba(0,0,0,0.8)`
+          : `0 4px 24px rgba(0,0,0,0.7), 0 1px 0 rgba(255,255,255,0.06) inset`,
       }}
     >
       {/* Top colour bleed */}
       <div
-        className="absolute top-0 left-0 right-0 h-28 pointer-events-none transition-opacity duration-500"
+        className="absolute top-0 left-0 right-0 h-32 pointer-events-none transition-opacity duration-500"
         style={{
           background: `linear-gradient(180deg, ${svc.color}15 0%, transparent 100%)`,
-          opacity: hovered ? 1 : 0.4,
+          opacity: isHovered ? 1 : 0.3,
         }}
       />
 
       {/* Ghost number */}
       <div
-        className="absolute top-3 right-5 text-[96px] font-black leading-none pointer-events-none select-none transition-all duration-500"
+        className="absolute top-4 right-6 text-[80px] font-black leading-none pointer-events-none select-none transition-all duration-500"
         style={{
-          WebkitTextStroke: `1.5px ${svc.color}`,
+          WebkitTextStroke: `1px ${svc.color}`,
           color: "transparent",
-          opacity: hovered ? 0.2 : 0.07,
+          opacity: isHovered ? 0.3 : 0.08,
         }}
       >
         {svc.id}
       </div>
 
       {/* Content */}
-      <div className="relative p-8 flex flex-col" style={{ minHeight: 340 }}>
+      <div className="relative p-7 flex flex-col h-full">
         {/* Icon */}
         <div
-          className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-all duration-500"
+          className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-500 bg-[#111] border border-white/5"
           style={{
-            background: hovered ? `${svc.color}20` : "rgba(255,255,255,0.06)",
-            border: `1px solid ${hovered ? `${svc.color}40` : "rgba(255,255,255,0.10)"}`,
-            color: hovered ? svc.color : "rgba(255,255,255,0.5)",
-            boxShadow: hovered ? `0 0 28px ${svc.color}35` : "none",
+            color: isHovered ? svc.color : "rgba(255,255,255,0.5)",
+            borderColor: isHovered ? `${svc.color}40` : "rgba(255,255,255,0.05)",
+            boxShadow: isHovered ? `0 0 20px ${svc.color}30` : "none",
           }}
         >
           {svc.icon}
         </div>
 
-        <h3 className="text-[22px] font-semibold text-white tracking-tight mb-1">{svc.title}</h3>
+        <h3 className="text-xl font-semibold text-white tracking-tight mb-1">{svc.title}</h3>
         <p
-          className="text-[10px] font-mono tracking-[0.22em] uppercase mb-4 transition-colors duration-300"
-          style={{ color: hovered ? svc.color : "rgba(255,255,255,0.28)" }}
+          className="text-[9px] font-mono tracking-[0.2em] uppercase mb-4 transition-colors duration-300"
+          style={{ color: isHovered ? svc.color : "rgba(255,255,255,0.3)" }}
         >
           {svc.tagline}
         </p>
-        <p className="text-gray-400 font-light text-[14px] leading-relaxed flex-1">{svc.description}</p>
-
-        {/* Bottom bar */}
-        <div className="mt-7 h-px w-full bg-white/8 relative overflow-hidden rounded-full">
-          <motion.div
-            className="absolute inset-y-0 left-0 rounded-full"
-            style={{ background: `linear-gradient(90deg, ${svc.color}, ${svc.color}70)` }}
-            animate={{ width: hovered ? "100%" : "22%" }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          />
-          <motion.div
-            className="absolute inset-y-0 w-16"
-            style={{ background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)` }}
-            animate={{ x: ["-64px", "400px"] }}
-            transition={{ duration: 2.2, repeat: Infinity, ease: "linear", repeatDelay: 0.8 }}
-          />
-        </div>
+        <p className="text-gray-400 font-light text-[13.5px] leading-relaxed flex-1">
+          {svc.description}
+        </p>
       </div>
+
+      {/* Hover glow overlay */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none mix-blend-screen opacity-0"
+        animate={{ opacity: isHovered ? 0.1 : 0 }}
+        style={{
+          background: `radial-gradient(circle at 50% 120%, ${svc.color}, transparent 60%)`
+        }}
+      />
     </motion.div>
   );
 }
-
