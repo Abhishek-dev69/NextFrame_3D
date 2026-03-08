@@ -106,8 +106,8 @@ export const ContactForm = () => {
               <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-gray-500 mb-2">Direct Contact</p>
               <p className="text-white text-[15px] font-light">+91 81607 64228</p>
               <p className="text-white text-[15px] font-light">+91 76988 00778</p>
-              <a href="mailto:hello@nextframe3d.com" className="text-blue-400 font-light hover:text-blue-300 transition-colors mt-1 block">
-                hello@nextframe3d.com
+              <a href="mailto:team.nextframee@gmail.com" className="text-blue-400 font-light hover:text-blue-300 transition-colors mt-1 block">
+                team.nextframee@gmail.com
               </a>
             </div>
           </div>
