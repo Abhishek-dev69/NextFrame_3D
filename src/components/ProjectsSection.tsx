@@ -36,7 +36,7 @@ const projects = [
 
 export const ProjectsSection = () => {
   return (
-    <section id="projects" className="relative py-32 bg-black px-6 z-10">
+    <section id="projects" className="relative py-16 md:py-32 bg-black px-6 z-10">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div

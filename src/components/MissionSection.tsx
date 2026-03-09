@@ -93,7 +93,7 @@ export const MissionSection = () => {
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (
-    <section id="mission" className="relative py-32 bg-[#050505] px-6 z-10 overflow-hidden">
+    <section id="mission" className="relative py-16 md:py-32 bg-[#050505] px-6 z-10 overflow-hidden">
       {/* Atmospheric background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full blur-[180px]"

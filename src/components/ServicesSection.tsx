@@ -72,7 +72,7 @@ export const ServicesSection = () => {
   return (
     <section 
       id="services" 
-      className="relative py-32 bg-black overflow-hidden flex flex-col items-center"
+      className="relative py-16 md:py-32 bg-black overflow-hidden flex flex-col items-center"
     >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />

@@ -168,7 +168,7 @@ export const BookingSection = () => {
   };
 
   return (
-    <section id="contact" className="relative py-32 bg-black px-6 z-10 overflow-hidden">
+    <section id="contact" className="relative py-16 md:py-32 bg-black px-6 z-10 overflow-hidden">
       {/* Atmospheric Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 right-1/4 w-[800px] h-[800px] bg-blue-600/5 rounded-full blur-[160px]" />

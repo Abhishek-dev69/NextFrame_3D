@@ -28,7 +28,7 @@ export const MetaglassesShowcase = () => {
   const labelOpacity = useTransform(scrollYProgress, [0.4, 0.8], [0, 1]);
 
   return (
-    <section ref={targetRef} className="relative min-h-[150vh] bg-black py-32 flex flex-col items-center">
+    <section ref={targetRef} className="relative min-h-[150vh] bg-black py-16 md:py-32 flex flex-col items-center">
       
       <div className="text-center mb-40 sticky top-32 z-20 px-6">
         <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">

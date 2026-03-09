@@ -59,7 +59,7 @@ export const ContactForm = () => {
   };
 
   return (
-    <section className="relative py-32 bg-black px-6 overflow-hidden z-10">
+    <section className="relative py-16 md:py-32 bg-black px-6 overflow-hidden z-10">
       {/* Ambient glowing atmosphere */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[140px]" />

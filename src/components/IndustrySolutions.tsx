@@ -91,7 +91,7 @@ export const IndustrySolutions = () => {
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
 
   return (
-    <section ref={containerRef} className="relative py-36 bg-[#0a0a0a] overflow-hidden">
+    <section ref={containerRef} className="relative py-16 md:py-36 bg-[#0a0a0a] overflow-hidden">
       {/* Parallax ghost text */}
       <motion.div
         style={{ y: bgY }}
