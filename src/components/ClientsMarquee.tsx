@@ -23,7 +23,7 @@ export const ClientsMarquee = () => {
   const springY = useSpring(parallaxY, { stiffness: 80, damping: 20 });
 
   return (
-    <section ref={sectionRef} id="projects" className="relative bg-black py-12 md:py-28 z-10 overflow-hidden">
+    <section ref={sectionRef} id="clients" className="relative bg-black py-12 md:py-28 z-10 overflow-hidden">
       {/* Background atmosphere */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[350px] rounded-full"
