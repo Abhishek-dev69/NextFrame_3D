@@ -69,6 +69,8 @@ const services = [
 ];
 
 export const ServicesSection = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <section 
       id="services" 
@@ -94,17 +96,20 @@ export const ServicesSection = () => {
       </div>
 
       {/* Deck Container */}
-      <div className="flex flex-col lg:flex-row items-center lg:justify-center relative z-10 w-full px-6 py-10 gap-8 lg:gap-0 lg:h-[600px]">
+      <div 
+        className="flex flex-col lg:flex-row items-center lg:justify-center relative z-10 w-full px-6 py-10 gap-8 lg:gap-0 lg:h-[600px]"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         {services.map((svc, i) => (
-          <ServiceCard key={svc.id} svc={svc} index={i} />
+          <ServiceCard key={svc.id} svc={svc} index={i} isHovered={isHovered} />
         ))}
       </div>
     </section>
   );
 };
 
-function ServiceCard({ svc, index }: any) {
-  const [isHovered, setIsHovered] = useState(false);
+function ServiceCard({ svc, index, isHovered }: any) {
   const [isMobile, setIsMobile] = useState(false);
 
   React.useEffect(() => {
@@ -115,7 +120,7 @@ function ServiceCard({ svc, index }: any) {
   }, []);
 
   // For mobile, we just render them vertically expanded.
-  // For desktop, we use the hover-deck logic.
+  // For desktop, we use the hover-deck logic passed from the parent.
   const isExpanded = isMobile ? true : isHovered;
 
   return (
@@ -136,8 +141,6 @@ function ServiceCard({ svc, index }: any) {
         damping: 25, 
         delay: isMobile ? 0 : (isHovered ? index * 0.05 : 0)
       }}
-      onMouseEnter={() => !isMobile && setIsHovered(true)}
-      onMouseLeave={() => !isMobile && setIsHovered(false)}
       className={`
         relative w-full max-w-[340px] lg:w-[300px] flex-shrink-0 cursor-pointer rounded-2xl overflow-hidden flex flex-col mx-auto
         ${!isMobile && !isHovered && index > 0 ? "lg:absolute lg:mt-0 lg:ml-[-30px]" : "lg:relative lg:mx-3"}
