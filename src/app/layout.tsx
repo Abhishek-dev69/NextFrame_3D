@@ -68,10 +68,6 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 5,
   },
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
 };
 
 export default function RootLayout({
