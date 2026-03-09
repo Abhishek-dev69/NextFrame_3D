@@ -42,21 +42,12 @@ export const metadata: Metadata = {
     description:
       "Interactive VR walkthroughs and real-time 3D visualizations — explore your future space before it is built. Serving Nashik, Mumbai, Vapi & Ahmedabad.",
     siteName: "NextFramee",
-    images: [
-      {
-        url: `${siteUrl}/og-image.png`,
-        width: 1200,
-        height: 630,
-        alt: "NextFramee — Experience Tomorrow Today | VR & 3D Visualization Studio",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "NextFramee | Immersive VR & 3D Visualization Studio India",
     description:
       "Interactive VR walkthroughs and real-time 3D visualizations — explore your future space before it is built.",
-    images: [`${siteUrl}/og-image.png`],
   },
   robots: {
     index: true,
