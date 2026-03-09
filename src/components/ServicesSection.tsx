@@ -69,8 +69,6 @@ const services = [
 ];
 
 export const ServicesSection = () => {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <section 
       id="services" 
@@ -84,70 +82,72 @@ export const ServicesSection = () => {
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Header */}
-      <motion.div
-        layout
-        className="flex flex-col items-center text-center justify-center gap-4 mb-16 z-20 pointer-events-none px-6"
-      >
+      <div className="flex flex-col items-center text-center justify-center gap-4 mb-20 z-20 pointer-events-none px-6">
         <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 mb-1">What we deliver</p>
         <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight leading-[1.1]">
           Our <span className="font-semibold italic bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">Services</span>
         </h2>
         <p className="mt-2 text-xs text-white/40 font-mono tracking-widest uppercase">
           <span className="hidden lg:inline">Hover to expand deck</span>
-          <span className="lg:hidden">Tap to expand deck</span>
+          <span className="lg:hidden">Scroll to explore</span>
         </p>
-      </motion.div>
+      </div>
 
       {/* Deck Container */}
-      <motion.div 
-        layout
-        className="flex flex-col lg:flex-row items-center justify-center relative z-10 w-full px-6 py-10"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={() => setIsHovered(!isHovered)}
-      >
+      <div className="flex flex-col lg:flex-row items-center lg:justify-center relative z-10 w-full px-6 py-10 gap-8 lg:gap-0 lg:h-[600px]">
         {services.map((svc, i) => (
-          <ServiceCard 
-            key={svc.id} 
-            svc={svc} 
-            index={i} 
-            isHovered={isHovered} 
-          />
+          <ServiceCard key={svc.id} svc={svc} index={i} />
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 };
 
-function ServiceCard({ svc, index, isHovered }: any) {
+function ServiceCard({ svc, index }: any) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // For mobile, we just render them vertically expanded.
+  // For desktop, we use the hover-deck logic.
+  const isExpanded = isMobile ? true : isHovered;
+
   return (
     <motion.div
       layout
       initial={false}
       animate={{
-        scale: isHovered ? 1 : 1 - (index * 0.04),
-        rotate: isHovered ? (index % 2 === 0 ? -1 : 1) : index * 3,
-        y: isHovered ? 0 : index * -15,   // Shift upwards slightly for a physical deck look
-        x: isHovered ? 0 : index * 8,     // Shift right slightly
+        scale: isMobile ? 1 : (isHovered ? 1 : 1 - (index * 0.04)),
+        rotate: isMobile ? 0 : (isHovered ? (index % 2 === 0 ? -1 : 1) : index * 3),
+        y: isMobile ? 0 : (isHovered ? 0 : index * -15),
+        x: isMobile ? 0 : (isHovered ? 0 : index * 8),
         zIndex: 10 - index,
-        height: isHovered ? 560 : 380,    // Image comes down
+        height: isExpanded ? 560 : 380,
       }}
       transition={{ 
         type: "spring", 
         stiffness: 260, 
         damping: 25, 
-        delay: isHovered ? index * 0.05 : 0 
+        delay: isMobile ? 0 : (isHovered ? index * 0.05 : 0)
       }}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && setIsHovered(false)}
       className={`
-        relative w-[300px] flex-shrink-0 cursor-pointer rounded-2xl overflow-hidden flex flex-col
-        ${!isHovered && index > 0 ? "mt-[-380px] lg:mt-0 lg:ml-[-300px]" : "mt-6 lg:mt-0 lg:ml-6"}
+        relative w-full max-w-[340px] lg:w-[300px] flex-shrink-0 cursor-pointer rounded-2xl overflow-hidden flex flex-col mx-auto
+        ${!isMobile && !isHovered && index > 0 ? "lg:absolute lg:mt-0 lg:ml-[-30px]" : "lg:relative lg:mx-3"}
       `}
       style={{
-        background: isHovered
+        background: isExpanded
           ? `linear-gradient(145deg, ${svc.color}14 0%, #0a0a0a 100%)`
           : "#0a0a0a",
-        border: `1px solid ${isHovered ? `${svc.color}35` : "rgba(255,255,255,0.08)"}`,
-        boxShadow: isHovered
+        border: `1px solid ${isExpanded ? `${svc.color}35` : "rgba(255,255,255,0.08)"}`,
+        boxShadow: isExpanded
           ? `0 0 0 1px ${svc.color}20, 0 20px 40px ${svc.color}15, 0 8px 32px rgba(0,0,0,0.8)`
           : `0 4px 24px rgba(0,0,0,0.7), 0 1px 0 rgba(255,255,255,0.06) inset`,
       }}
@@ -157,7 +157,7 @@ function ServiceCard({ svc, index, isHovered }: any) {
         className="absolute top-0 left-0 right-0 h-32 pointer-events-none transition-opacity duration-500 z-0"
         style={{
           background: `linear-gradient(180deg, ${svc.color}25 0%, transparent 100%)`,
-          opacity: isHovered ? 1 : 0.3,
+          opacity: isExpanded ? 1 : 0.3,
         }}
       />
 
@@ -167,7 +167,7 @@ function ServiceCard({ svc, index, isHovered }: any) {
         style={{
           WebkitTextStroke: `1px ${svc.color}`,
           color: "transparent",
-          opacity: isHovered ? 0.3 : 0.08,
+          opacity: isExpanded ? 0.3 : 0.08,
         }}
       >
         {svc.id}
@@ -179,9 +179,9 @@ function ServiceCard({ svc, index, isHovered }: any) {
         <div
           className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-500 bg-[#111] border border-white/5"
           style={{
-            color: isHovered ? svc.color : "rgba(255,255,255,0.5)",
-            borderColor: isHovered ? `${svc.color}40` : "rgba(255,255,255,0.05)",
-            boxShadow: isHovered ? `0 0 20px ${svc.color}30` : "none",
+            color: isExpanded ? svc.color : "rgba(255,255,255,0.5)",
+            borderColor: isExpanded ? `${svc.color}40` : "rgba(255,255,255,0.05)",
+            boxShadow: isExpanded ? `0 0 20px ${svc.color}30` : "none",
           }}
         >
           {svc.icon}
@@ -190,7 +190,7 @@ function ServiceCard({ svc, index, isHovered }: any) {
         <h3 className="text-xl font-semibold text-white tracking-tight mb-1">{svc.title}</h3>
         <p
           className="text-[9px] font-mono tracking-[0.2em] uppercase mb-4 transition-colors duration-300"
-          style={{ color: isHovered ? svc.color : "rgba(255,255,255,0.3)" }}
+          style={{ color: isExpanded ? svc.color : "rgba(255,255,255,0.3)" }}
         >
           {svc.tagline}
         </p>
@@ -203,8 +203,8 @@ function ServiceCard({ svc, index, isHovered }: any) {
       <motion.div
         initial={false}
         animate={{ 
-          height: isHovered ? 180 : 0, 
-          opacity: isHovered ? 1 : 0 
+          height: isExpanded ? 180 : 0, 
+          opacity: isExpanded ? 1 : 0 
         }}
         className="w-full shrink-0 relative overflow-hidden bg-[#0A0A0A]"
       >
@@ -219,7 +219,7 @@ function ServiceCard({ svc, index, isHovered }: any) {
       {/* Hover glow overlay */}
       <motion.div
         className="absolute inset-0 pointer-events-none mix-blend-screen opacity-0"
-        animate={{ opacity: isHovered ? 0.1 : 0 }}
+        animate={{ opacity: isExpanded ? 0.1 : 0 }}
         style={{
           background: `radial-gradient(circle at 50% 120%, ${svc.color}, transparent 60%)`
         }}
