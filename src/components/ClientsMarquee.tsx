@@ -62,7 +62,7 @@ export const ClientsMarquee = () => {
             </span>
           </h2>
           <p className="mt-5 text-gray-500 font-light max-w-md mx-auto">
-            Visionary developers and architects across Gujarat who chose NextFrame
+            Visionary developers and architects across Gujarat who chose NextFramee
             to sell before they build.
           </p>
 

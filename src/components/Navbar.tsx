@@ -49,7 +49,7 @@ export const Navbar = () => {
         <a href="#" className="flex items-center">
           <Image
             src="/logo-transparent.png"
-            alt="NextFrame"
+            alt="NextFramee"
             width={200}
             height={48}
             className="h-10 w-auto object-contain"

@@ -206,7 +206,7 @@ export const VRGlimpseSection = () => {
             of our VR Experience
           </h2>
           <p className="mt-4 text-gray-500 font-light max-w-xl mx-auto">
-            Scroll through a live walkthrough of a NextFrame Metaframe interior. This is what your buyers will experience.
+            Scroll through a live walkthrough of a NextFramee Metaframe interior. This is what your buyers will experience.
           </p>
         </motion.div>
       </div>

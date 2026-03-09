@@ -32,7 +32,7 @@ export const MetaglassesShowcase = () => {
       
       <div className="text-center mb-40 sticky top-32 z-20 px-6">
         <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">
-          NextFrame <span className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-gray-200 to-gray-500">Metaglasses</span>
+          NextFramee <span className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-gray-200 to-gray-500">Metaglasses</span>
         </h2>
         <p className="mt-4 text-gray-400 font-light max-w-xl mx-auto">
           The ultimate on-site visualization hardware. Scroll to reveal the architecture inside the architecture.

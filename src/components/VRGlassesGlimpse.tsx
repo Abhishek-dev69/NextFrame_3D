@@ -157,7 +157,7 @@ export const VRGlassesGlimpse = () => {
           <h2 className="text-3xl md:text-5xl font-light text-white tracking-tight">
             The{" "}
             <span className="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-red-300 via-white to-blue-300">
-              NextFrame Metaglass
+              NextFramee Metaglass
             </span>
           </h2>
           <p className="mt-4 text-gray-500 font-light max-w-xl mx-auto">

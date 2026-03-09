@@ -45,7 +45,7 @@ export const AboutSection = () => {
           <div className="inline-flex items-center gap-2 px-3 py-1 mb-5 rounded-full border border-white/10 bg-white/4">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
             <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/30">
-              About NextFrame
+              About NextFramee
             </span>
           </div>
         </motion.div>
@@ -84,7 +84,7 @@ export const AboutSection = () => {
             className="space-y-7"
           >
             <p className="text-gray-300 font-light leading-relaxed text-lg">
-              NextFrame is a virtual reality and immersive visualization studio focused on
+              NextFramee is a virtual reality and immersive visualization studio focused on
               transforming how architectural and real estate projects are experienced.
               We create interactive VR walkthroughs and real-time visualizations that allow
               people to explore spaces <em className="text-white not-italic font-normal">before they are built.</em>
@@ -96,7 +96,7 @@ export const AboutSection = () => {
               design as if it already exists.
             </p>
             <p className="text-gray-500 font-light leading-relaxed text-[15px]">
-              At NextFrame, we use real-time technology and immersive storytelling to bring
+              At NextFramee, we use real-time technology and immersive storytelling to bring
               future spaces into the present — collapsing the gap between imagination and reality.
             </p>
 

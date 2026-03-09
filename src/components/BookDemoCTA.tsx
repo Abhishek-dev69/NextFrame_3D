@@ -12,7 +12,7 @@ export const BookDemoCTA = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const whatsappUrl = "https://wa.me/918160764228?text=Hi%2C%20I%20would%20like%20to%20book%20a%20free%20demo%20with%20NextFrame.";
+  const whatsappUrl = "https://wa.me/918160764228?text=Hi%2C%20I%20would%20like%20to%20book%20a%20free%20demo%20with%20NextFramee.";
 
   return (
     <AnimatePresence>

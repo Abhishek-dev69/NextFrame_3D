@@ -93,7 +93,7 @@ export const ContactForm = () => {
           </div>
           
           <p className="text-gray-400 font-light max-w-md leading-relaxed text-[15px]">
-            Whether you are developing a commercial high-rise or a premium residential complex, NextFrame brings your architecture to life before construction even begins. Connect with our team today.
+            Whether you are developing a commercial high-rise or a premium residential complex, NextFramee brings your architecture to life before construction even begins. Connect with our team today.
           </p>
 
           {/* Contact Details Grid */}

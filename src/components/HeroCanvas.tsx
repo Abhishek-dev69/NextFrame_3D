@@ -26,7 +26,7 @@ const hotspots = [
     id: "processor",
     top: "80%",
     left: "70%",
-    title: "NextFrame Metaglass 2.0",
+    title: "NextFramee Metaglass 2.0",
     description: "Edge-computing node rendering real-time spatial physics."
   }
 ];
@@ -216,7 +216,7 @@ export const HeroCanvas = () => {
         >
           <Image
             src="/logo-transparent.png"
-            alt="NextFrame"
+            alt="NextFramee"
             width={900}
             height={147}
             className="h-12 sm:h-16 md:h-20 w-auto max-w-[78vw] object-contain mb-3 md:mb-4"

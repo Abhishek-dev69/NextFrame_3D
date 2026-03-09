@@ -27,7 +27,7 @@ const steps = [
     number: "02",
     title: "Faster Sales Cycle",
     description:
-      "AR and 3D visualization remove uncertainty. Projects using NextFrame Metaframes see average inquiry-to-booking timelines cut by up to 40%.",
+      "AR and 3D visualization remove uncertainty. Projects using NextFramee Metaframes see average inquiry-to-booking timelines cut by up to 40%.",
     icon: (
       <svg viewBox="0 0 44 44" fill="none" className="w-8 h-8">
         <circle cx="22" cy="22" r="14" stroke="currentColor" strokeWidth="1.5"/>
@@ -115,7 +115,7 @@ export const MissionSection = () => {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 mb-5 rounded-full border border-white/10 bg-white/4">
             <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
-            <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/30">Why NextFrame</span>
+            <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/30">Why NextFramee</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-light text-white tracking-tight">
             Our{" "}

@@ -50,7 +50,7 @@ export const IntroAnimation = () => {
           >
             <Image
               src="/logo-transparent.png"
-              alt="NextFrame"
+              alt="NextFramee"
               width={480}
               height={80}
               className="w-[60vw] max-w-[420px] h-auto object-contain drop-shadow-[0_0_60px_rgba(59,130,246,0.5)]"
