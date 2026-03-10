@@ -230,23 +230,23 @@ export const HeroCanvas = () => {
             {" "}TODAY.
           </h1>
           <div className="mt-6 flex flex-col items-center gap-5">
-            <p className="text-xs sm:text-sm text-gray-300 font-light tracking-[0.2em] sm:tracking-[0.3em] uppercase max-w-xs sm:max-w-lg mx-auto">
+            <p className="text-xs sm:text-sm bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300 font-light tracking-[0.2em] sm:tracking-[0.3em] uppercase max-w-xs sm:max-w-lg mx-auto drop-shadow-sm">
               Keep scrolling to assemble
             </p>
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-              className="flex flex-col items-center gap-2 opacity-80"
+              className="flex flex-col items-center gap-2"
             >
-              <div className="w-[22px] h-[34px] border-[1.5px] border-white/40 rounded-full flex justify-center p-1">
+              <div className="w-[22px] h-[34px] border-[1.5px] border-blue-400/50 rounded-full flex justify-center p-1 shadow-[0_0_15px_rgba(96,165,250,0.3)]">
                 <motion.div
                   animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }}
                   transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                  className="w-1 h-1.5 bg-white rounded-full bg-glow-white"
+                  className="w-1 h-1.5 bg-blue-300 rounded-full shadow-[0_0_8px_rgba(147,197,253,0.8)]"
                 />
               </div>
               <svg
-                className="w-4 h-4 text-white/60"
+                className="w-4 h-4 text-blue-400/80"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
