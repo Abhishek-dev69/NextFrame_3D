@@ -229,9 +229,32 @@ export const HeroCanvas = () => {
             </span>
             {" "}TODAY.
           </h1>
-          <p className="mt-4 text-xs sm:text-sm text-gray-300 font-light tracking-[0.2em] sm:tracking-[0.3em] uppercase max-w-xs sm:max-w-lg mx-auto">
-            Keep scrolling to assemble
-          </p>
+          <div className="mt-6 flex flex-col items-center gap-5">
+            <p className="text-xs sm:text-sm text-gray-300 font-light tracking-[0.2em] sm:tracking-[0.3em] uppercase max-w-xs sm:max-w-lg mx-auto">
+              Keep scrolling to assemble
+            </p>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              className="flex flex-col items-center gap-2 opacity-80"
+            >
+              <div className="w-[22px] h-[34px] border-[1.5px] border-white/40 rounded-full flex justify-center p-1">
+                <motion.div
+                  animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                  className="w-1 h-1.5 bg-white rounded-full bg-glow-white"
+                />
+              </div>
+              <svg
+                className="w-4 h-4 text-white/60"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </motion.div>
+          </div>
         </motion.div>
 
         {/* Background queue progress — shows while loaded but still fetching later frames */}
